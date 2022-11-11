@@ -1,6 +1,10 @@
 name: GitHub Trending Repos
 
 on:
+  push:
+    branches:
+      - main
+
   schedule:
     - cron: "15/30 * * * *"
 
