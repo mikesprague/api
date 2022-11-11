@@ -6,7 +6,7 @@ on:
       - main
   
   schedule:
-    - cron: "10/30 * * * *"
+    - cron: "5/15 * * * *"
 
   workflow_dispatch:
 
@@ -37,9 +37,25 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           check-latest: true
+          cache: npm
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      
+      - name: Check cache
+        uses: actions/cache@v3
+        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: ⬆️  Update npm and install dependencies
-        run: npm i --location=global npm && npm install --omit=dev
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: npm i --location=global npm && npm ci --omit=dev
 
       - name: 🏃‍♂️  Run script to generate national day data
         run: npm run national-day
