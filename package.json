@@ -1,0 +1,84 @@
+{
+  "name": "api",
+  "description": "Some API endpoints",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": {
+    "clean": "rm -rf dist/",
+    "dev": "cross-env NODE_ENV=development node --trace-warnings ./src/index.js",
+    "debug": "cross-env NODE_ENV=development node --trace-warnings --inspect=0.0.0.0:9229 --debug ./src/index.js",
+    "national-day": "node ./src/national-day.js",
+    "start": "npm run national-day",
+    "test": "echo \"No tests yet...\""
+  },
+  "author": {
+    "name": "Michael Sprague",
+    "email": "mikesprague@gmail.com"
+  },
+  "repository": {
+    "url": "https://github.com/mikesprague/api"
+  },
+  "engines": {
+    "node": ">= 18.x",
+    "npm": ">= 8.x"
+  },
+  "dependencies": {
+    "cheerio": "1.0.0-rc.12",
+    "dayjs": "1.11.6",
+    "got": "12.5.2"
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.2",
+    "@babel/eslint-parser": "7.19.1",
+    "cross-env": "7.0.3",
+    "eslint": "8.27.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-import": "2.26.0",
+    "prettier": "2.7.1",
+    "prettier-eslint": "15.0.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": false,
+      "commonjs": false,
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "plugins": [
+      "import",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "allowImportExportEverywhere": true,
+      "parser": "@eslint/babel-parser",
+      "ecmaFeatures": {
+        "impliedStrict": true,
+        "modules": true
+      },
+      "sourceType": "module"
+    },
+    "ignorePatterns": [
+      "**/.history/*",
+      "**/node_modules/*"
+    ],
+    "rules": {
+      "import/prefer-default-export": "off",
+      "no-console": "warn",
+      "import/extensions": "off"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "all"
+  }
+}

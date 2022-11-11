@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "experimentalDecorators": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "strictFunctionTypes": true
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "data",
+    "node_modules",
+    "**/node_modules/*",
+    ".history",
+    "**/history/*",
+    ".git",
+    "**/git/*",
+    ".github"
+  ]
+}
