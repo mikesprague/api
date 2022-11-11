@@ -27,7 +27,6 @@ jobs:
   build:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}${{ env.FILE_TO_ATTACH }}
     runs-on: ubuntu-latest
     steps:
       - name: 👷  Checkout Repo
