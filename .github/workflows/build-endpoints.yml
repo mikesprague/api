@@ -1,4 +1,4 @@
-name: National Day
+name: Build Endpoints
 
 on:
   push:
@@ -21,7 +21,6 @@ concurrency:
 
 env:
   NODE_VERSION: "18.x"
-  FILE_TO_ATTACH: "national-day.json"
   OUTPUT_FILE_DIR: "dist/"
 
 jobs:
@@ -43,15 +42,11 @@ jobs:
       - name: ⬆️  Update npm and install dependencies
         run: npm i --location=global npm && npm install --omit=dev
 
-      - name: 🏃‍♂️  Run script to generate API data
+      - name: 🏃‍♂️  Run script to generate national day data
         run: npm run national-day
-
-      - name: 📎  Attach JSON file to workflow run
-        uses: actions/upload-artifact@v3
-        with:
-          name: ${{ env.FILE_TO_ATTACH }}
-          path: ${{ env.OUTPUT_FILE_DIR }}${{ env.FILE_TO_ATTACH }}
-          retention-days: 30
+      
+      - name: 🏃‍♂️  Run script to generate trending repo data
+        run: npm run github-trending-repos
 
       - name: 🏗️ Setup Pages
         uses: actions/configure-pages@v2
