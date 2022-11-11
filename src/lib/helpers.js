@@ -11,5 +11,6 @@ export const writeDataAsJsonFile = async (path, fileName, dataToWrite) => {
 };
 
 export const sharedConfig = {
+  defaultTimezone: 'America/New_York',
   outputDir: 'dist/',
 };

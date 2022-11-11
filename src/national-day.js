@@ -7,10 +7,9 @@ import timezone from 'dayjs/plugin/timezone.js';
 
 import { writeDataAsJsonFile, sharedConfig } from './lib/helpers.js';
 
-const defaultTimezone = 'America/New_York';
 dayjs.extend(utc);
 dayjs.extend(timezone);
-dayjs.tz.setDefault(defaultTimezone);
+dayjs.tz.setDefault(sharedConfig.defaultTimezone);
 
 const { hrtime } = process;
 
@@ -32,11 +31,10 @@ const { hrtime } = process;
     fileName: 'national-day.json',
   };
 
-  // object with defaults/settings used in script
   let nationalDaysData = [];
   const pageData = await got(config.urlToScrape)
     .then(async (response) => response.body)
-    .catch((error) => console.log(`[national-day] Error: \n`, error));
+    .catch((error) => console.error(`[national-day] Error: \n`, error));
   const $ = cheerio.load(pageData);
   const groupData = $(config.selectors.group);
   const days = $(groupData).find(config.selectors.days);
@@ -50,7 +48,7 @@ const { hrtime } = process;
     // });
     const descriptionData = await got(link)
       .then(async (response) => response.body)
-      .catch((error) => console.log(`[national-day] Error: \n`, error));
+      .catch((error) => console.error(`[national-day] Error: \n`, error));
 
     const $desc = cheerio.load(descriptionData);
     const description = $desc(config.selectors.description.container)
@@ -70,7 +68,7 @@ const { hrtime } = process;
   }
 
   const apiData = {
-    lastUpdated: dayjs().tz(defaultTimezone).toISOString(),
+    lastUpdated: dayjs().tz(sharedConfig.defaultTimezone).toISOString(),
     data: nationalDaysData,
   };
 

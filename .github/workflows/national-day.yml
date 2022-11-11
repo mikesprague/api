@@ -1,4 +1,4 @@
-name: Nation Day API
+name: National Day
 
 on:
   schedule:
@@ -17,7 +17,6 @@ concurrency:
 
 env:
   NODE_VERSION: "18.x"
-  DISPLAY_NAME: "National Day API"
   FILE_TO_ATTACH: "national-day.json"
   OUTPUT_FILE_DIR: "dist/"
 
