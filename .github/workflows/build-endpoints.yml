@@ -39,22 +39,17 @@ jobs:
           check-latest: true
           cache: npm
 
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      
-      - name: Check cache
+      - name: ⚡  Cache node_modules
         uses: actions/cache@v3
-        id: npm-cache # use this to check for `cache-hit` ==> if: steps.npm-cache.outputs.cache-hit != 'true'
+        id: cache
         with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: ⬆️  Update npm and install dependencies
-        if: steps.npm-cache.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm i --location=global npm && npm ci --omit=dev
 
       - name: 🏃‍♂️  Run script to generate national day data
