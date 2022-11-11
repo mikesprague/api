@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: "18.x"
+  NODE_VERSION: "18"
   OUTPUT_FILE_DIR: "dist/"
 
 jobs:
@@ -44,9 +44,9 @@ jobs:
         id: cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-
 
       - name: ⬆️  Update npm and install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
