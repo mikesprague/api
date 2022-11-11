@@ -105,4 +105,5 @@ dist
 
 .history/
 dist/
+api.code-workspace
 
