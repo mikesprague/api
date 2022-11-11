@@ -4,13 +4,10 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "exports": "./src/index.js",
   "scripts": {
     "clean": "rm -rf dist/",
-    "dev": "cross-env NODE_ENV=development node --trace-warnings ./src/index.js",
-    "debug": "cross-env NODE_ENV=development node --trace-warnings --inspect=0.0.0.0:9229 --debug ./src/index.js",
+    "github-trending-repos": "node ./src/github-trending-repos.js",
     "national-day": "node ./src/national-day.js",
-    "start": "npm run national-day",
     "test": "echo \"No tests yet...\""
   },
   "author": {

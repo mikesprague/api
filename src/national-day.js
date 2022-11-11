@@ -32,7 +32,12 @@ const { hrtime } = process;
   };
 
   let nationalDaysData = [];
-  const pageData = await got(config.urlToScrape)
+  const pageData = await got
+    .get(config.urlToScrape, {
+      headers: {
+        'User-Agent': sharedConfig.userAgent,
+      },
+    })
     .then(async (response) => response.body)
     .catch((error) => console.error(`[national-day] Error: \n`, error));
   const $ = cheerio.load(pageData);
