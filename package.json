@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf dist/",
-    "github-trending-repos": "node ./src/github-trending-repos.js",
-    "national-day": "node ./src/national-day.js",
+    "github-trending-repos": "TZ='America/New_York' node ./src/github-trending-repos.js",
+    "national-day": "TZ='America/New_York' node ./src/national-day.js",
     "test": "echo \"No tests yet...\""
   },
   "author": {
