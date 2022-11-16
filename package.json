@@ -24,7 +24,7 @@
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
     "dayjs": "1.11.6",
-    "got": "12.5.2"
+    "got": "12.5.3"
   },
   "devDependencies": {
     "@babel/core": "7.20.2",
