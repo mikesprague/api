@@ -51,24 +51,26 @@ const { hrtime } = process;
     //   name: title,
     //   url: link,
     // });
-    const descriptionData = await got(link)
-      .then(async (response) => response.body)
-      .catch((error) => console.error(`[national-day] Error: \n`, error));
+    if (link) {
+      const descriptionData = await got(link)
+        .then(async (response) => response.body)
+        .catch((error) => console.error(`[national-day] Error: \n`, error));
 
-    const $desc = cheerio.load(descriptionData);
-    const description = $desc(config.selectors.description.container)
-      .find(config.selectors.description.text)
-      .first()
-      .text()
-      .trim();
-    // console.log(description);
+      const $desc = cheerio.load(descriptionData);
+      const description = $desc(config.selectors.description.container)
+        .find(config.selectors.description.text)
+        .first()
+        .text()
+        .trim();
+      // console.log(description);
 
-    if (title && link && description) {
-      nationalDaysData.push({
-        title,
-        link,
-        description,
-      });
+      if (title && link && description) {
+        nationalDaysData.push({
+          title,
+          link,
+          description,
+        });
+      }
     }
   }
 
