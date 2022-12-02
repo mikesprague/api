@@ -7,6 +7,10 @@ updates:
       time: "07:00"
       timezone: "America/New_York"
     target-branch: "main"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -14,3 +18,8 @@ updates:
       time: "07:00"
       timezone: "America/New_York"
     target-branch: "main"
+    commit-message:
+      prefix: "chore"
+      prefix-development: "chore"
+      include: "scope"
+
