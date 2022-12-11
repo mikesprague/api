@@ -17,14 +17,15 @@ const { hrtime } = process;
   const debugStart = hrtime();
 
   const config = {
-    urlToScrape: 'https://nationaldaycalendar.com/',
+    urlToScrape: `https://nationaldaycalendar.com/${dayjs()
+      .format('MMMM')
+      .toLowerCase()}/#tab-${dayjs().format('D')}`,
     selectors: {
-      group: 'div.sep_month_events',
-      days: '.eventon_list_event.evo_eventtop.scheduled.event',
-      title: 'span.evcal_event_title',
-      link: 'a',
+      days: `.kt-inner-tab-${dayjs().format('D')} .ultp-block-item`,
+      title: 'h2.ultp-block-title',
+      link: 'h2.ultp-block-title a',
       description: {
-        container: '#ff-main-container > main > article > section',
+        container: '.entry-content.wp-block-post-content',
         text: 'h2 ~ p',
       },
     },
@@ -39,14 +40,43 @@ const { hrtime } = process;
       },
     })
     .then(async (response) => response.body)
+    // .then(async (response) => {
+    //   console.log(response.body);
+    //   return response.body;
+    // })
     .catch((error) => console.error(`[national-day] Error: \n`, error));
+
   const $ = cheerio.load(pageData);
-  const groupData = $(config.selectors.group);
-  const days = $(groupData).find(config.selectors.days);
+  const days = $(config.selectors.days);
   for await (const day of $(days)) {
-    const title = $(day).find(config.selectors.title).text().trim();
-    const link = $(day).find(config.selectors.link).first().attr('href').trim();
-    // console.log(title, link);
+    let title = $(day).find(config.selectors.title).text().trim();
+    title = title.split('-')[0].trim();
+    title = title.split('–')[0].trim();
+    title = title.toLowerCase().split(' ');
+    // console.log(title);
+    title = title
+      .map((word) => {
+        const dontCapitalize = [
+          'and',
+          'or',
+          'the',
+          'of',
+          'a',
+          'an',
+          'at',
+          'by',
+          'to',
+          'but',
+          'for',
+        ];
+        if (dontCapitalize.includes(word)) {
+          return word;
+        }
+        return word[0].toUpperCase() + word.substring(1);
+      })
+      .join(' ');
+    const link = $(day).find(config.selectors.link).attr('href').trim();
+    console.log(title, link);
     // nationalDaysData.push({
     //   name: title,
     //   url: link,
@@ -55,7 +85,6 @@ const { hrtime } = process;
       const descriptionData = await got(link)
         .then(async (response) => response.body)
         .catch((error) => console.error(`[national-day] Error: \n`, error));
-
       const $desc = cheerio.load(descriptionData);
       const description = $desc(config.selectors.description.container)
         .find(config.selectors.description.text)
@@ -63,7 +92,6 @@ const { hrtime } = process;
         .text()
         .trim();
       // console.log(description);
-
       if (title && link && description) {
         nationalDaysData.push({
           title,
