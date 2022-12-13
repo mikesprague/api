@@ -24,6 +24,7 @@ const { hrtime } = process;
       days: `.kt-inner-tab-${dayjs().format('D')} .ultp-block-item`,
       title: 'h2.ultp-block-title',
       link: 'h2.ultp-block-title a',
+      image: '.ultp-block-image img',
       description: {
         container: '.entry-content.wp-block-post-content',
         text: 'h2 ~ p',
@@ -76,7 +77,8 @@ const { hrtime } = process;
       })
       .join(' ');
     const link = $(day).find(config.selectors.link).attr('href').trim();
-    console.log(title, link);
+    let image = null;
+    image = $(day).find(config.selectors.image).data('src');
     // nationalDaysData.push({
     //   name: title,
     //   url: link,
@@ -97,6 +99,7 @@ const { hrtime } = process;
           title,
           link,
           description,
+          image,
         });
       }
     }
