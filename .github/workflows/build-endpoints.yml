@@ -25,8 +25,6 @@ env:
 
 jobs:
   build:
-    environment:
-      name: github-pages
     runs-on: ubuntu-latest
     steps:
       - name: 👷  Checkout Repo
@@ -58,14 +56,18 @@ jobs:
       - name: 🏃‍♂️  Run script to generate trending repo data
         run: npm run github-trending-repos
 
-      - name: 🏗️ Setup Pages
-        uses: actions/configure-pages@v2
-
-      - name: 📦 Create and Upload artifact
-        uses: actions/upload-pages-artifact@v1
+      - name: 📦 Create and upload build artifact
+        uses: actions/upload-artifact@v3
         with:
+          name: api-endpoints
           path: ${{ env.OUTPUT_FILE_DIR }}
+          retention-days: 1
 
-      - name: 🚀 Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@main
+  call-deploy-workflow:
+    needs: [build]
+    uses: mikesprague/reusable-workflows/.github/workflows/pages-deploy.yml@main
+    secrets:
+      REPO_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+    with:
+      artifact-name: api-endpoints
+      file-name: 'github-trending-repos.json'
