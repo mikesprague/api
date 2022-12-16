@@ -51,7 +51,6 @@ const { hrtime } = process;
   const days = $(config.selectors.days);
   for await (const day of $(days)) {
     let title = $(day).find(config.selectors.title).text().trim();
-    title = title.split('-')[0].trim();
     title = title.split('–')[0].trim();
     title = title.toLowerCase().split(' ');
     // console.log(title);
