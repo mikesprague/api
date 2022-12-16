@@ -78,7 +78,7 @@ const { hrtime } = process;
       .join(' ');
     const link = $(day).find(config.selectors.link).attr('href').trim();
     let image = null;
-    image = $(day).find(config.selectors.image).data('src');
+    image = $(day).find(config.selectors.image).attr('src');
     // nationalDaysData.push({
     //   name: title,
     //   url: link,
