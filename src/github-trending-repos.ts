@@ -14,6 +14,19 @@ dayjs.tz.setDefault(defaultTimezone);
 
 const { hrtime } = process;
 
+interface ApiResult {
+  title: string;
+  description: string;
+  stars: string;
+  starsLink: string;
+  forks: string;
+  forksLink: string;
+  starsToday: string;
+  languageStyle: string | undefined;
+  languageName: string | undefined;
+  link: string;
+}
+
 (async () => {
   const debugStart = hrtime();
 
@@ -39,9 +52,10 @@ const { hrtime } = process;
   const languageColorSelector = `${languageSelector} > span.d-inline-block.ml-0.mr-3 > .repo-language-color`;
   const languageNameSelector = `${languageSelector} > span.d-inline-block.ml-0.mr-3 > span:nth-child(2)`;
   const $ = cheerio.load(markup);
-  const trendingReposData = [];
+  const trendingReposData: ApiResult[] = [];
 
   $(rowSelector).each((i, elem) => {
+    // @ts-ignore
     const title = $(elem).find(linkTitleSelector).attr('href').substring(1);
     const link = `https://github.com${$(elem)
       .find(linkTitleSelector)
@@ -74,16 +88,16 @@ const { hrtime } = process;
       .trim();
     const languageStyle = $(elem).find(languageColorSelector).attr('style')
       ? $(elem).find(languageColorSelector).attr('style')
-      : null;
+      : undefined;
     const languageName = languageStyle
       ? $(elem)
           .find(languageNameSelector)
           .text()
           .replace(/\r?\n|\r/, '')
           .trim()
-      : null;
+      : undefined;
 
-    trendingReposData.push({
+    const apiResult: ApiResult = {
       title,
       description,
       stars,
@@ -94,7 +108,8 @@ const { hrtime } = process;
       languageStyle,
       languageName,
       link,
-    });
+    };
+    trendingReposData.push(apiResult);
   });
 
   const apiData = {

@@ -13,10 +13,32 @@ dayjs.tz.setDefault(sharedConfig.defaultTimezone);
 
 const { hrtime } = process;
 
+interface ApiResult {
+  title: string;
+  link: string;
+  description: string;
+  image: string | undefined;
+}
+
+interface Config {
+  urlToScrape: string;
+  selectors: {
+    days: string;
+    title: string;
+    link: string;
+    image: string;
+    description: {
+      container: string;
+      text: string;
+    };
+  };
+  fileName: string;
+}
+
 (async () => {
   const debugStart = hrtime();
 
-  const config = {
+  const config: Config = {
     urlToScrape: `https://nationaldaycalendar.com/${dayjs()
       .format('MMMM')
       .toLowerCase()}/#tab-${dayjs().format('D')}`,
@@ -33,8 +55,8 @@ const { hrtime } = process;
     fileName: 'national-day.json',
   };
 
-  let nationalDaysData = [];
-  const pageData = await got
+  const nationalDaysData: ApiResult[] = [];
+  const pageData: string = await got
     .get(config.urlToScrape, {
       headers: {
         'User-Agent': sharedConfig.userAgent,
@@ -45,12 +67,18 @@ const { hrtime } = process;
     //   console.log(response.body);
     //   return response.body;
     // })
-    .catch((error) => console.error(`[national-day] Error: \n`, error));
+    .catch((error) => {
+      console.error(`[national-day] Error: \n`, error);
+      return error;
+    });
 
   const $ = cheerio.load(pageData);
   const days = $(config.selectors.days);
   for await (const day of $(days)) {
-    let title = $(day).find(config.selectors.title).text().trim();
+    let title: string | string[] = $(day)
+      .find(config.selectors.title)
+      .text()
+      .trim();
     title = title.split('–')[0].trim();
     title = title.split('|')[0].trim();
     title = title.toLowerCase().split(' ');
@@ -76,17 +104,18 @@ const { hrtime } = process;
         return word[0].toUpperCase() + word.substring(1);
       })
       .join(' ');
+    const image: string | undefined = $(day)
+      .find(config.selectors.image)
+      .attr('src');
+    // @ts-ignore
     const link = $(day).find(config.selectors.link).attr('href').trim();
-    let image = null;
-    image = $(day).find(config.selectors.image).attr('src');
-    // nationalDaysData.push({
-    //   name: title,
-    //   url: link,
-    // });
     if (link) {
-      const descriptionData = await got(link)
+      const descriptionData: string = await got(link)
         .then(async (response) => response.body)
-        .catch((error) => console.error(`[national-day] Error: \n`, error));
+        .catch((error) => {
+          console.error(`[national-day] Error: \n`, error);
+          return error;
+        });
       const $desc = cheerio.load(descriptionData);
       const description = $desc(config.selectors.description.container)
         .find(config.selectors.description.text)
@@ -95,12 +124,13 @@ const { hrtime } = process;
         .trim();
       // console.log(description);
       if (title && link && description) {
-        nationalDaysData.push({
+        const apiResult: ApiResult = {
           title,
           link,
           description,
           image,
-        });
+        };
+        nationalDaysData.push(apiResult);
       }
     }
   }

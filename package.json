@@ -5,9 +5,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "clean": "rm -rf dist/",
-    "github-trending-repos": "TZ='America/New_York' node ./src/github-trending-repos.js",
-    "national-day": "TZ='America/New_York' node ./src/national-day.js",
+    "build": "tsc",
+    "clean": "rm -rf dist/ && rm -rf build/",
+    "github-trending-repos": "TZ='America/New_York' node ./build/github-trending-repos.js",
+    "national-day": "TZ='America/New_York' node ./build/national-day.js",
     "test": "echo \"No tests yet...\""
   },
   "author": {
@@ -28,17 +29,22 @@
   },
   "devDependencies": {
     "@babel/core": "7.20.5",
-    "@babel/eslint-parser": "7.19.1",
+    "@types/cheerio": "0.22.31",
+    "@types/node": "18.11.17",
+    "@typescript-eslint/eslint-plugin": "5.47.0",
+    "@typescript-eslint/parser": "5.47.0",
     "cross-env": "7.0.3",
-    "cz-conventional-changelog": "^3.3.0",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "8.30.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-prettier": "4.2.1",
     "prettier": "2.8.1",
-    "prettier-eslint": "15.0.1"
+    "prettier-eslint": "15.0.1",
+    "typescript": "4.9.4"
   },
   "eslintConfig": {
+    "root": true,
     "env": {
       "browser": false,
       "commonjs": false,
@@ -47,16 +53,18 @@
     },
     "extends": [
       "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
       "prettier"
     ],
     "plugins": [
+      "@typescript-eslint",
       "import",
       "prettier"
     ],
     "parserOptions": {
       "ecmaVersion": "latest",
       "allowImportExportEverywhere": true,
-      "parser": "@eslint/babel-parser",
+      "parser": "@typescript-eslint/parser",
       "ecmaFeatures": {
         "impliedStrict": true,
         "modules": true
