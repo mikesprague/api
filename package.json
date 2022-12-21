@@ -7,9 +7,10 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist/ && rm -rf build/",
-    "github-trending-repos": "TZ='America/New_York' node ./build/github-trending-repos.js",
-    "national-day": "TZ='America/New_York' node ./build/national-day.js",
-    "test": "echo \"No tests yet...\""
+    "github-trending-repos": "TZ='America/New_York' tsx ./src/github-trending-repos.ts",
+    "national-day": "TZ='America/New_York' tsx ./src/national-day.ts",
+    "test": "echo \"No tests yet...\"",
+    "typecheck": "tsc --noEmit"
   },
   "author": {
     "name": "Michael Sprague",
@@ -41,6 +42,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "prettier": "2.8.1",
     "prettier-eslint": "15.0.1",
+    "tsx": "3.12.1",
     "typescript": "4.9.4"
   },
   "eslintConfig": {

@@ -8,8 +8,6 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "strictNullChecks": true,
-    "checkJs": true,
-    "allowJs": true,
     "moduleResolution": "NodeNext",
     "types": [
       "node"
@@ -20,15 +18,14 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "allowUnreachableCode": true,
+    "allowUnreachableCode": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.js"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "<node_internals>/**",
+    "<node_internals>/**"
   ]
 }
 
