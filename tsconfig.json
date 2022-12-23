@@ -20,6 +20,10 @@
     "forceConsistentCasingInFileNames": true,
     "allowUnreachableCode": true
   },
+  "ts-node": {
+    "esm": true,
+    "swc": true
+  },
   "include": [
     "src/**/*.ts"
   ],
