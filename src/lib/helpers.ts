@@ -1,9 +1,11 @@
 import fs from 'node:fs';
 
-export const writeDataAsJsonFile = async (
+export type StringOrUndefined = string | undefined;
+
+export const writeDataAsJsonFile = async <T extends object>(
   path: string,
   fileName: string,
-  dataToWrite: object,
+  dataToWrite: T,
 ) => {
   if (!fs.existsSync(path)) {
     await fs.mkdirSync(path);
@@ -14,7 +16,7 @@ export const writeDataAsJsonFile = async (
   );
 };
 
-interface SharedConfig {
+export interface SharedConfig {
   defaultTimezone: string;
   userAgent: string;
   outputDir: string;

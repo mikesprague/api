@@ -5,16 +5,20 @@ import got from 'got';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 
-import { writeDataAsJsonFile, sharedConfig } from './lib/helpers.js';
+import {
+  writeDataAsJsonFile,
+  sharedConfig,
+  SharedConfig,
+  StringOrUndefined,
+} from './lib/helpers.js';
 
-const defaultTimezone = 'America/New_York';
 dayjs.extend(utc);
 dayjs.extend(timezone);
-dayjs.tz.setDefault(defaultTimezone);
+dayjs.tz.setDefault(sharedConfig.defaultTimezone);
 
 const { hrtime } = process;
 
-interface ApiResult {
+type TrendingRepo = {
   title: string;
   description: string;
   stars: string;
@@ -22,23 +26,34 @@ interface ApiResult {
   forks: string;
   forksLink: string;
   starsToday: string;
-  languageStyle: string | undefined;
-  languageName: string | undefined;
+  languageStyle: StringOrUndefined;
+  languageName: StringOrUndefined;
   link: string;
+};
+
+type TrendingRepoResults = {
+  lastUpdated: string;
+  data: TrendingRepo[];
+};
+
+interface ScriptConfig extends SharedConfig {
+  urlToScrape: string;
+  fileName: string;
 }
 
 (async () => {
   const debugStart = hrtime();
 
-  const config = {
+  const config: ScriptConfig = {
     urlToScrape: 'https://github.com/trending?spoken_language_code=en',
     fileName: 'github-trending-repos.json',
+    ...sharedConfig,
   };
 
   const markup = await got
     .get(config.urlToScrape, {
       headers: {
-        'User-Agent': sharedConfig.userAgent,
+        'User-Agent': config.userAgent,
       },
     })
     .then((response) => response.body);
@@ -52,11 +67,10 @@ interface ApiResult {
   const languageColorSelector = `${languageSelector} > span.d-inline-block.ml-0.mr-3 > .repo-language-color`;
   const languageNameSelector = `${languageSelector} > span.d-inline-block.ml-0.mr-3 > span:nth-child(2)`;
   const $ = cheerio.load(markup);
-  const trendingReposData: ApiResult[] = [];
+  const trendingReposData: TrendingRepo[] = [];
 
   $(rowSelector).each((i, elem) => {
-    // @ts-ignore
-    const title = $(elem).find(linkTitleSelector).attr('href').substring(1);
+    const title = $(elem).find(linkTitleSelector).attr('href')!.substring(1);
     const link = `https://github.com${$(elem)
       .find(linkTitleSelector)
       .attr('href')}`;
@@ -97,7 +111,7 @@ interface ApiResult {
           .trim()
       : undefined;
 
-    const apiResult: ApiResult = {
+    const trendingRepo: TrendingRepo = {
       title,
       description,
       stars,
@@ -109,15 +123,15 @@ interface ApiResult {
       languageName,
       link,
     };
-    trendingReposData.push(apiResult);
+    trendingReposData.push(trendingRepo);
   });
 
-  const apiData = {
-    lastUpdated: dayjs().tz(defaultTimezone).toISOString(),
+  const apiData: TrendingRepoResults = {
+    lastUpdated: dayjs().tz(config.defaultTimezone).toISOString(),
     data: trendingReposData,
   };
 
-  writeDataAsJsonFile(sharedConfig.outputDir, config.fileName, apiData);
+  await writeDataAsJsonFile(config.outputDir, config.fileName, apiData);
 
   console.log(apiData);
 

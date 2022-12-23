@@ -5,7 +5,12 @@ import got from 'got';
 import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 
-import { writeDataAsJsonFile, sharedConfig } from './lib/helpers.js';
+import {
+  writeDataAsJsonFile,
+  sharedConfig,
+  SharedConfig,
+  StringOrUndefined,
+} from './lib/helpers.js';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -13,14 +18,19 @@ dayjs.tz.setDefault(sharedConfig.defaultTimezone);
 
 const { hrtime } = process;
 
-interface ApiResult {
+type NationalDay = {
   title: string;
   link: string;
   description: string;
-  image: string | undefined;
-}
+  image: StringOrUndefined;
+};
 
-interface Config {
+type NationalDayResults = {
+  lastUpdated: string;
+  data: NationalDay[];
+};
+
+interface ScriptConfig extends SharedConfig {
   urlToScrape: string;
   selectors: {
     days: string;
@@ -38,7 +48,7 @@ interface Config {
 (async () => {
   const debugStart = hrtime();
 
-  const config: Config = {
+  const config: ScriptConfig = {
     urlToScrape: `https://nationaldaycalendar.com/${dayjs()
       .format('MMMM')
       .toLowerCase()}/#tab-${dayjs().format('D')}`,
@@ -53,13 +63,14 @@ interface Config {
       },
     },
     fileName: 'national-day.json',
+    ...sharedConfig,
   };
 
-  const nationalDaysData: ApiResult[] = [];
+  const nationalDaysData: NationalDay[] = [];
   const pageData: string = await got
     .get(config.urlToScrape, {
       headers: {
-        'User-Agent': sharedConfig.userAgent,
+        'User-Agent': config.userAgent,
       },
     })
     .then(async (response) => response.body)
@@ -107,8 +118,7 @@ interface Config {
     const image: string | undefined = $(day)
       .find(config.selectors.image)
       .attr('src');
-    // @ts-ignore
-    const link = $(day).find(config.selectors.link).attr('href').trim();
+    const link = $(day).find(config.selectors.link).attr('href')!.trim();
     if (link) {
       const descriptionData: string = await got(link)
         .then(async (response) => response.body)
@@ -124,23 +134,23 @@ interface Config {
         .trim();
       // console.log(description);
       if (title && link && description) {
-        const apiResult: ApiResult = {
+        const nationalDay: NationalDay = {
           title,
           link,
           description,
           image,
         };
-        nationalDaysData.push(apiResult);
+        nationalDaysData.push(nationalDay);
       }
     }
   }
 
-  const apiData = {
-    lastUpdated: dayjs().tz(sharedConfig.defaultTimezone).toISOString(),
+  const apiData: NationalDayResults = {
+    lastUpdated: dayjs().tz(config.defaultTimezone).toISOString(),
     data: nationalDaysData,
   };
 
-  writeDataAsJsonFile(sharedConfig.outputDir, config.fileName, apiData);
+  await writeDataAsJsonFile(config.outputDir, config.fileName, apiData);
 
   console.log(apiData);
 
