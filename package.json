@@ -14,7 +14,8 @@
     "posttypecheck": "npm run declarations",
     "test": "echo \"No tests yet...\"",
     "typecheck": "tsc --noEmit",
-    "typedoc": "typedoc --out docs src/**/*.ts --excludeInternal false --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none"
+    "typedoc": "typedoc --out docs src/**/*.ts --excludeInternal false --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
+    "typedoc-html": "typedoc --out docs/html src/**/*.ts --excludeInternal false --excludeNotDocumented false --readme none --plugin none"
   },
   "author": {
     "name": "Michael Sprague",
@@ -86,9 +87,7 @@
       "**/node_modules/*"
     ],
     "rules": {
-      "import/prefer-default-export": "off",
-      "no-console": "warn",
-      "import/extensions": "off"
+      "no-console": "warn"
     }
   },
   "prettier": {
