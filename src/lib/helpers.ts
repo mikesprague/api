@@ -9,7 +9,6 @@ export interface SharedConfig {
 }
 
 /**
- * @function writeDataAsJsonFile
  * @summary  writes an object to a file as a string in JSON format
  * @example  await writeDataAsJsonFile(
  *   'outputDirectory/',

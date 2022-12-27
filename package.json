@@ -6,13 +6,15 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf dist/ && rm -rf build/",
-    "declarations": "tsc --emitDeclarationOnly",
+    "clean": "rimraf dist/ && rimraf build/",
+    "docs": "rimraf docs/ && npm run typedoc",
+    "declarations": "rimraf types/ && tsc --emitDeclarationOnly",
     "github-trending-repos": "TZ='America/New_York' ts-node ./src/github-trending-repos.ts",
     "national-day": "TZ='America/New_York' ts-node ./src/national-day.ts",
     "posttypecheck": "npm run declarations",
     "test": "echo \"No tests yet...\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "typedoc": "typedoc --out docs src/**/*.ts --excludeInternal false --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none"
   },
   "author": {
     "name": "Michael Sprague",
@@ -45,7 +47,10 @@
     "eslint-plugin-prettier": "4.2.1",
     "prettier": "2.8.1",
     "prettier-eslint": "15.0.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
+    "typedoc": "^0.23.23",
+    "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "4.9.4"
   },
   "eslintConfig": {
