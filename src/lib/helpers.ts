@@ -2,11 +2,30 @@ import fs from 'node:fs';
 
 export type StringOrUndefined = string | undefined;
 
+export interface SharedConfig {
+  defaultTimezone: string;
+  userAgent: string;
+  outputDir: string;
+}
+
+/**
+ * @function writeDataAsJsonFile
+ * @summary  writes an object to a file as a string in JSON format
+ * @example  await writeDataAsJsonFile(
+ *   'outputDirectory/',
+ *   'my-data.json',
+ *   referenceToDataObject
+ * );
+ * @param    {string} path
+ * @param    {string} fileName
+ * @param    {Object} dataToWrite
+ * @returns  {Promise<void>}
+ */
 export const writeDataAsJsonFile = async <T extends object>(
   path: string,
   fileName: string,
   dataToWrite: T,
-) => {
+): Promise<void> => {
   if (!fs.existsSync(path)) {
     await fs.mkdirSync(path);
   }
@@ -15,12 +34,6 @@ export const writeDataAsJsonFile = async <T extends object>(
     JSON.stringify(dataToWrite, null, 2),
   );
 };
-
-export interface SharedConfig {
-  defaultTimezone: string;
-  userAgent: string;
-  outputDir: string;
-}
 
 export const sharedConfig: SharedConfig = {
   defaultTimezone: 'America/New_York',

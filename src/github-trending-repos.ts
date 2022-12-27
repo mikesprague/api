@@ -6,10 +6,10 @@ import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 
 import {
-  writeDataAsJsonFile,
-  sharedConfig,
   SharedConfig,
   StringOrUndefined,
+  sharedConfig,
+  writeDataAsJsonFile,
 } from './lib/helpers.js';
 
 dayjs.extend(utc);
@@ -18,7 +18,7 @@ dayjs.tz.setDefault(sharedConfig.defaultTimezone);
 
 const { hrtime } = process;
 
-type TrendingRepo = {
+export type TrendingRepo = {
   title: string;
   description: string;
   stars: string;
@@ -31,12 +31,12 @@ type TrendingRepo = {
   link: string;
 };
 
-type TrendingRepoResults = {
+export type TrendingRepoResults = {
   lastUpdated: string;
   data: TrendingRepo[];
 };
 
-interface ScriptConfig extends SharedConfig {
+export interface TrendingRepoConfig extends SharedConfig {
   urlToScrape: string;
   fileName: string;
 }
@@ -44,7 +44,7 @@ interface ScriptConfig extends SharedConfig {
 (async () => {
   const debugStart = hrtime();
 
-  const config: ScriptConfig = {
+  const config: TrendingRepoConfig = {
     urlToScrape: 'https://github.com/trending?spoken_language_code=en',
     fileName: 'github-trending-repos.json',
     ...sharedConfig,

@@ -6,10 +6,10 @@ import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 
 import {
-  writeDataAsJsonFile,
-  sharedConfig,
   SharedConfig,
   StringOrUndefined,
+  sharedConfig,
+  writeDataAsJsonFile,
 } from './lib/helpers.js';
 
 dayjs.extend(utc);
@@ -18,19 +18,19 @@ dayjs.tz.setDefault(sharedConfig.defaultTimezone);
 
 const { hrtime } = process;
 
-type NationalDay = {
+export type NationalDay = {
   title: string;
   link: string;
   description: string;
   image: StringOrUndefined;
 };
 
-type NationalDayResults = {
+export type NationalDayResults = {
   lastUpdated: string;
   data: NationalDay[];
 };
 
-interface ScriptConfig extends SharedConfig {
+export interface NationalDayConfig extends SharedConfig {
   urlToScrape: string;
   selectors: {
     days: string;
@@ -48,7 +48,7 @@ interface ScriptConfig extends SharedConfig {
 (async () => {
   const debugStart = hrtime();
 
-  const config: ScriptConfig = {
+  const config: NationalDayConfig = {
     urlToScrape: `https://nationaldaycalendar.com/${dayjs()
       .format('MMMM')
       .toLowerCase()}/#tab-${dayjs().format('D')}`,

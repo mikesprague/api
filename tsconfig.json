@@ -5,6 +5,8 @@
     "outDir": "build",
     "rootDir": "src",
     "strict": true,
+    "declaration": true,
+    "declarationDir": "types",
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "strictNullChecks": true,

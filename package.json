@@ -7,8 +7,10 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf dist/ && rm -rf build/",
+    "declarations": "tsc --emitDeclarationOnly",
     "github-trending-repos": "TZ='America/New_York' ts-node ./src/github-trending-repos.ts",
     "national-day": "TZ='America/New_York' ts-node ./src/national-day.ts",
+    "posttypecheck": "npm run declarations",
     "test": "echo \"No tests yet...\"",
     "typecheck": "tsc --noEmit"
   },
