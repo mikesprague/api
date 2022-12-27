@@ -15,7 +15,7 @@
     "test": "echo \"No tests yet...\"",
     "typecheck": "tsc --noEmit",
     "typedoc": "typedoc --out docs src/**/*.ts --excludeInternal false --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
-    "typedoc-html": "typedoc --out docs/html src/**/*.ts --excludeInternal false --excludeNotDocumented false --readme none --plugin none"
+    "typedoc-html": "typedoc --out dist/docs src/**/*.ts --excludeInternal false --excludeNotDocumented false --readme none --plugin none"
   },
   "author": {
     "name": "Michael Sprague",

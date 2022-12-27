@@ -50,11 +50,14 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm i --location=global npm && npm install
       
-      - name: 🏃‍♂️ Run script to generate national day data
+      - name: 🛠️ Run script to generate national day data
         run: npm run national-day
       
-      - name: 🏃‍♂️ Run script to generate trending repo data
+      - name: 🛠️ Run script to generate trending repo data
         run: npm run github-trending-repos
+      
+      - name: 🛠️ Run script to generate documentation
+        run: npm run typedoc-html
 
       - name: 📦 Create and upload build artifact
         uses: actions/upload-artifact@v3
