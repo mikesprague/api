@@ -33,7 +33,7 @@
 
 #### Defined in
 
-[lib/helpers.ts:6](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L6)
+[lib/helpers.ts:6](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L6)
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 #### Defined in
 
-[national-day.ts:45](https://github.com/mikesprague/api/blob/ff921ac/src/national-day.ts#L45)
+[national-day.ts:45](https://github.com/mikesprague/api/blob/72247bf/src/national-day.ts#L45)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 #### Defined in
 
-[lib/helpers.ts:8](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L8)
+[lib/helpers.ts:8](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L8)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 #### Defined in
 
-[national-day.ts:35](https://github.com/mikesprague/api/blob/ff921ac/src/national-day.ts#L35)
+[national-day.ts:35](https://github.com/mikesprague/api/blob/72247bf/src/national-day.ts#L35)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 #### Defined in
 
-[national-day.ts:34](https://github.com/mikesprague/api/blob/ff921ac/src/national-day.ts#L34)
+[national-day.ts:34](https://github.com/mikesprague/api/blob/72247bf/src/national-day.ts#L34)
 
 ___
 
@@ -103,4 +103,4 @@ ___
 
 #### Defined in
 
-[lib/helpers.ts:7](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L7)
+[lib/helpers.ts:7](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L7)

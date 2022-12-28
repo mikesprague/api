@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[lib/helpers.ts:3](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L3)
+[lib/helpers.ts:3](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L3)
 
 ## Variables
 
@@ -38,7 +38,7 @@
 
 #### Defined in
 
-[lib/helpers.ts:37](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L37)
+[lib/helpers.ts:37](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L37)
 
 ## Functions
 
@@ -80,4 +80,4 @@ await writeDataAsJsonFile(
 
 #### Defined in
 
-[lib/helpers.ts:23](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L23)
+[lib/helpers.ts:23](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L23)

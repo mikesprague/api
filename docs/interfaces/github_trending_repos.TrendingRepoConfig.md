@@ -32,7 +32,7 @@
 
 #### Defined in
 
-[lib/helpers.ts:6](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L6)
+[lib/helpers.ts:6](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L6)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[github-trending-repos.ts:41](https://github.com/mikesprague/api/blob/ff921ac/src/github-trending-repos.ts#L41)
+[github-trending-repos.ts:41](https://github.com/mikesprague/api/blob/72247bf/src/github-trending-repos.ts#L41)
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 #### Defined in
 
-[lib/helpers.ts:8](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L8)
+[lib/helpers.ts:8](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L8)
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 #### Defined in
 
-[github-trending-repos.ts:40](https://github.com/mikesprague/api/blob/ff921ac/src/github-trending-repos.ts#L40)
+[github-trending-repos.ts:40](https://github.com/mikesprague/api/blob/72247bf/src/github-trending-repos.ts#L40)
 
 ___
 
@@ -80,4 +80,4 @@ ___
 
 #### Defined in
 
-[lib/helpers.ts:7](https://github.com/mikesprague/api/blob/ff921ac/src/lib/helpers.ts#L7)
+[lib/helpers.ts:7](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L7)

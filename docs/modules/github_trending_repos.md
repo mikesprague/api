@@ -36,7 +36,7 @@
 
 #### Defined in
 
-[github-trending-repos.ts:21](https://github.com/mikesprague/api/blob/ff921ac/src/github-trending-repos.ts#L21)
+[github-trending-repos.ts:21](https://github.com/mikesprague/api/blob/72247bf/src/github-trending-repos.ts#L21)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 #### Defined in
 
-[github-trending-repos.ts:34](https://github.com/mikesprague/api/blob/ff921ac/src/github-trending-repos.ts#L34)
+[github-trending-repos.ts:34](https://github.com/mikesprague/api/blob/72247bf/src/github-trending-repos.ts#L34)

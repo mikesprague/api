@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[national-day.ts:21](https://github.com/mikesprague/api/blob/ff921ac/src/national-day.ts#L21)
+[national-day.ts:21](https://github.com/mikesprague/api/blob/72247bf/src/national-day.ts#L21)
 
 ___
 
@@ -47,4 +47,4 @@ ___
 
 #### Defined in
 
-[national-day.ts:28](https://github.com/mikesprague/api/blob/ff921ac/src/national-day.ts#L28)
+[national-day.ts:28](https://github.com/mikesprague/api/blob/72247bf/src/national-day.ts#L28)
