@@ -73,4 +73,4 @@ jobs:
       REPO_TOKEN: ${{ secrets.GITHUB_TOKEN}}
     with:
       artifact-name: api-endpoints
-      file-name: 'github-trending-repos.json'
+      file-name: docs/
