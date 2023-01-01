@@ -1,13 +1,9 @@
-import { SharedConfig, StringOrUndefined } from './lib/helpers.js';
+import { SharedConfig, StringOrNull } from './lib/helpers.js';
 export type NationalDay = {
     title: string;
     link: string;
     description: string;
-    image: StringOrUndefined;
-};
-export type NationalDayResults = {
-    lastUpdated: string;
-    data: NationalDay[];
+    image?: StringOrNull;
 };
 export interface NationalDayConfig extends SharedConfig {
     urlToScrape: string;

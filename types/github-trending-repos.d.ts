@@ -1,4 +1,4 @@
-import { SharedConfig, StringOrUndefined } from './lib/helpers.js';
+import { SharedConfig, StringOrNull } from './lib/helpers.js';
 export type TrendingRepo = {
     title: string;
     description: string;
@@ -7,13 +7,9 @@ export type TrendingRepo = {
     forks: string;
     forksLink: string;
     starsToday: string;
-    languageStyle: StringOrUndefined;
-    languageName: StringOrUndefined;
+    languageStyle?: StringOrNull;
+    languageName?: StringOrNull;
     link: string;
-};
-export type TrendingRepoResults = {
-    lastUpdated: string;
-    data: TrendingRepo[];
 };
 export interface TrendingRepoConfig extends SharedConfig {
     urlToScrape: string;

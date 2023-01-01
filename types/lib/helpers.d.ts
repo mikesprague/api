@@ -1,11 +1,14 @@
-export type StringOrUndefined = string | undefined;
+export type StringOrNull = string | null;
 export interface SharedConfig {
     defaultTimezone: string;
     userAgent: string;
     outputDir: string;
 }
+export type APIResults<T> = {
+    data: T[];
+    lastUpdated: string;
+};
 /**
- * @function writeDataAsJsonFile
  * @summary  writes an object to a file as a string in JSON format
  * @example  await writeDataAsJsonFile(
  *   'outputDirectory/',
