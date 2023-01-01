@@ -6,8 +6,9 @@ import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
 
 import {
+  APIResults,
   SharedConfig,
-  StringOrUndefined,
+  StringOrNull,
   sharedConfig,
   writeDataAsJsonFile,
 } from './lib/helpers.js';
@@ -22,12 +23,7 @@ export type NationalDay = {
   title: string;
   link: string;
   description: string;
-  image: StringOrUndefined;
-};
-
-export type NationalDayResults = {
-  lastUpdated: string;
-  data: NationalDay[];
+  image?: StringOrNull;
 };
 
 export interface NationalDayConfig extends SharedConfig {
@@ -145,7 +141,7 @@ export interface NationalDayConfig extends SharedConfig {
     }
   }
 
-  const apiData: NationalDayResults = {
+  const apiData: APIResults<NationalDay> = {
     lastUpdated: dayjs().tz(config.defaultTimezone).toISOString(),
     data: nationalDaysData,
   };

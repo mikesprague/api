@@ -1,11 +1,16 @@
 import fs from 'node:fs';
 
-export type StringOrUndefined = string | undefined;
+export type StringOrNull = string | null;
 
 export interface SharedConfig {
   defaultTimezone: string;
   userAgent: string;
   outputDir: string;
+}
+
+export type APIResults<T> = {
+  data: T[];
+  lastUpdated: string;
 }
 
 /**
