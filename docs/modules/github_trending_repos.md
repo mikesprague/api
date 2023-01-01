@@ -11,7 +11,6 @@
 ### Type Aliases
 
 - [TrendingRepo](github_trending_repos.md#trendingrepo)
-- [TrendingRepoResults](github_trending_repos.md#trendingreporesults)
 
 ## Type Aliases
 
@@ -26,8 +25,8 @@
 | `description` | `string` |
 | `forks` | `string` |
 | `forksLink` | `string` |
-| `languageName` | [`StringOrUndefined`](lib_helpers.md#stringorundefined) |
-| `languageStyle` | [`StringOrUndefined`](lib_helpers.md#stringorundefined) |
+| `languageName?` | [`StringOrNull`](lib_helpers.md#stringornull) |
+| `languageStyle?` | [`StringOrNull`](lib_helpers.md#stringornull) |
 | `link` | `string` |
 | `stars` | `string` |
 | `starsLink` | `string` |
@@ -36,21 +35,4 @@
 
 #### Defined in
 
-[github-trending-repos.ts:21](https://github.com/mikesprague/api/blob/72247bf/src/github-trending-repos.ts#L21)
-
-___
-
-### TrendingRepoResults
-
-Ƭ **TrendingRepoResults**: `Object`
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `data` | [`TrendingRepo`](github_trending_repos.md#trendingrepo)[] |
-| `lastUpdated` | `string` |
-
-#### Defined in
-
-[github-trending-repos.ts:34](https://github.com/mikesprague/api/blob/72247bf/src/github-trending-repos.ts#L34)
+[github-trending-repos.ts:22](https://github.com/mikesprague/api/blob/bb808e1/src/github-trending-repos.ts#L22)

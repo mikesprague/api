@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[lib/helpers.ts:6](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L6)
+[lib/helpers.ts:6](https://github.com/mikesprague/api/blob/bb808e1/src/lib/helpers.ts#L6)
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 #### Defined in
 
-[lib/helpers.ts:8](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L8)
+[lib/helpers.ts:8](https://github.com/mikesprague/api/blob/bb808e1/src/lib/helpers.ts#L8)
 
 ___
 
@@ -48,4 +48,4 @@ ___
 
 #### Defined in
 
-[lib/helpers.ts:7](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L7)
+[lib/helpers.ts:7](https://github.com/mikesprague/api/blob/bb808e1/src/lib/helpers.ts#L7)

@@ -10,7 +10,8 @@
 
 ### Type Aliases
 
-- [StringOrUndefined](lib_helpers.md#stringorundefined)
+- [APIResults](lib_helpers.md#apiresults)
+- [StringOrNull](lib_helpers.md#stringornull)
 
 ### Variables
 
@@ -22,13 +23,36 @@
 
 ## Type Aliases
 
-### StringOrUndefined
+### APIResults
 
-Ƭ **StringOrUndefined**: `string` \| `undefined`
+Ƭ **APIResults**<`T`\>: `Object`
+
+#### Type parameters
+
+| Name |
+| :------ |
+| `T` |
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `data` | `T`[] |
+| `lastUpdated` | `string` |
 
 #### Defined in
 
-[lib/helpers.ts:3](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L3)
+[lib/helpers.ts:11](https://github.com/mikesprague/api/blob/bb808e1/src/lib/helpers.ts#L11)
+
+___
+
+### StringOrNull
+
+Ƭ **StringOrNull**: `string` \| ``null``
+
+#### Defined in
+
+[lib/helpers.ts:3](https://github.com/mikesprague/api/blob/bb808e1/src/lib/helpers.ts#L3)
 
 ## Variables
 
@@ -38,7 +62,7 @@
 
 #### Defined in
 
-[lib/helpers.ts:37](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L37)
+[lib/helpers.ts:42](https://github.com/mikesprague/api/blob/bb808e1/src/lib/helpers.ts#L42)
 
 ## Functions
 
@@ -80,4 +104,4 @@ await writeDataAsJsonFile(
 
 #### Defined in
 
-[lib/helpers.ts:23](https://github.com/mikesprague/api/blob/72247bf/src/lib/helpers.ts#L23)
+[lib/helpers.ts:28](https://github.com/mikesprague/api/blob/bb808e1/src/lib/helpers.ts#L28)
