@@ -49,7 +49,7 @@ export interface NationalDayConfig extends SharedConfig {
       .format('MMMM')
       .toLowerCase()}/#tab-${dayjs().format('D')}`,
     selectors: {
-      days: `.kt-inner-tab-${dayjs().format('D')} .ultp-block-item`,
+      days: `.ultp-block-items-wrap.ultp-block-row .ultp-block-item.ultp-block-media`,
       title: 'h2.ultp-block-title',
       link: 'h2.ultp-block-title a',
       image: '.ultp-block-image img',
@@ -86,57 +86,73 @@ export interface NationalDayConfig extends SharedConfig {
       .find(config.selectors.title)
       .text()
       .trim();
-    title = title.split('–')[0].trim();
-    title = title.split('|')[0].trim();
-    title = title.toLowerCase().split(' ');
-    // console.log(title);
-    title = title
-      .map((word) => {
-        const dontCapitalize = [
-          'and',
-          'or',
-          'the',
-          'of',
-          'a',
-          'an',
-          'at',
-          'by',
-          'to',
-          'but',
-          'for',
-        ];
-        if (dontCapitalize.includes(word)) {
-          return word;
-        }
-        return word[0].toUpperCase() + word.substring(1);
-      })
-      .join(' ');
-    const image: string | undefined = $(day)
-      .find(config.selectors.image)
-      .attr('src');
     const link = $(day).find(config.selectors.link).attr('href')!.trim();
-    if (link) {
-      const descriptionData: string = await got(link)
-        .then(async (response) => response.body)
-        .catch((error) => {
-          console.error(`[national-day] Error: \n`, error);
-          return error;
-        });
-      const $desc = cheerio.load(descriptionData);
-      const description = $desc(config.selectors.description.container)
-        .find(config.selectors.description.text)
-        .first()
-        .text()
-        .trim();
-      // console.log(description);
-      if (title && link && description) {
-        const nationalDay: NationalDay = {
-          title,
-          link,
-          description,
-          image,
-        };
-        nationalDaysData.push(nationalDay);
+    if (
+      (title
+        .toLowerCase()
+        .includes(`${dayjs().format('dddd').toLowerCase()}`) &&
+        link
+          .toLowerCase()
+          .includes(
+            `${dayjs().format('MMMM').toLowerCase()}-${dayjs().format('D')}`,
+          )) ||
+      title
+        .toLowerCase()
+        .includes(
+          `${dayjs().format('MMMM').toLowerCase()} ${dayjs().format('D')}`,
+        )
+    ) {
+      title = title.split('–')[0].trim();
+      title = title.split('|')[0].trim();
+      title = title.toLowerCase().split(' ');
+      // console.log('title: ', title);
+      title = title
+        .map((word) => {
+          const dontCapitalize = [
+            'and',
+            'or',
+            'the',
+            'of',
+            'a',
+            'an',
+            'at',
+            'by',
+            'to',
+            'but',
+            'for',
+          ];
+          if (dontCapitalize.includes(word)) {
+            return word;
+          }
+          return word[0].toUpperCase() + word.substring(1);
+        })
+        .join(' ');
+      const image: string | undefined = $(day)
+        .find(config.selectors.image)
+        .attr('src');
+      if (link) {
+        const descriptionData: string = await got(link)
+          .then(async (response) => response.body)
+          .catch((error) => {
+            console.error(`[national-day] Error: \n`, error);
+            return error;
+          });
+        const $desc = cheerio.load(descriptionData);
+        const description = $desc(config.selectors.description.container)
+          .find(config.selectors.description.text)
+          .first()
+          .text()
+          .trim();
+        // console.log(description);
+        if (title && link && description) {
+          const nationalDay: NationalDay = {
+            title,
+            link,
+            description,
+            image,
+          };
+          nationalDaysData.push(nationalDay);
+        }
       }
     }
   }
