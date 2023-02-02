@@ -93,13 +93,13 @@ export interface NationalDayConfig extends SharedConfig {
         .includes(`${dayjs().format('dddd').toLowerCase()}`) &&
         link
           .toLowerCase()
-          .includes(
+          .endsWith(
             `${dayjs().format('MMMM').toLowerCase()}-${dayjs().format('D')}`,
           )) ||
       title
         .toLowerCase()
-        .includes(
-          `${dayjs().format('MMMM').toLowerCase()} ${dayjs().format('D')}`,
+        .endsWith(
+          `– ${dayjs().format('MMMM').toLowerCase()} ${dayjs().format('D')}`,
         )
     ) {
       title = title.split('–')[0].trim();
