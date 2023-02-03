@@ -45,13 +45,11 @@ export interface NationalDayConfig extends SharedConfig {
   const debugStart = hrtime();
 
   const config: NationalDayConfig = {
-    urlToScrape: `https://nationaldaycalendar.com/${dayjs()
-      .format('MMMM')
-      .toLowerCase()}/#tab-${dayjs().format('D')}`,
+    urlToScrape: 'https://nationaldaycalendar.com/what-day-is-it/',
     selectors: {
-      days: `.ultp-block-items-wrap.ultp-block-row .ultp-block-item.ultp-block-media`,
-      title: 'h2.ultp-block-title',
-      link: 'h2.ultp-block-title a',
+      days: `.ultp-block-items-wrap.ultp-block-row .ultp-block-item .ultp-block-entry-content`,
+      title: '.ultp-block-title',
+      link: '.ultp-block-title a',
       image: '.ultp-block-image img',
       description: {
         container: '.entry-content.wp-block-post-content',
@@ -87,72 +85,57 @@ export interface NationalDayConfig extends SharedConfig {
       .text()
       .trim();
     const link = $(day).find(config.selectors.link).attr('href')!.trim();
-    if (
-      (title
-        .toLowerCase()
-        .includes(`${dayjs().format('dddd').toLowerCase()}`) &&
-        link
-          .toLowerCase()
-          .endsWith(
-            `${dayjs().format('MMMM').toLowerCase()}-${dayjs().format('D')}`,
-          )) ||
-      title
-        .toLowerCase()
-        .endsWith(
-          `– ${dayjs().format('MMMM').toLowerCase()} ${dayjs().format('D')}`,
-        )
-    ) {
-      title = title.split('–')[0].trim();
-      title = title.split('|')[0].trim();
-      title = title.toLowerCase().split(' ');
-      // console.log('title: ', title);
-      title = title
-        .map((word) => {
-          const dontCapitalize = [
-            'and',
-            'or',
-            'the',
-            'of',
-            'a',
-            'an',
-            'at',
-            'by',
-            'to',
-            'but',
-            'for',
-          ];
-          if (dontCapitalize.includes(word)) {
-            return word;
-          }
-          return word[0].toUpperCase() + word.substring(1);
-        })
-        .join(' ');
-      const image: string | undefined = $(day)
-        .find(config.selectors.image)
-        .attr('src');
-      if (link) {
-        const descriptionData: string = await got(link)
-          .then(async (response) => response.body)
-          .catch((error) => {
-            console.error(`[national-day] Error: \n`, error);
-            return error;
-          });
-        const $desc = cheerio.load(descriptionData);
-        const description = $desc(config.selectors.description.container)
-          .find(config.selectors.description.text)
-          .first()
-          .text()
-          .trim();
-        // console.log(description);
-        if (title && link && description) {
-          const nationalDay: NationalDay = {
-            title,
-            link,
-            description,
-            image,
-          };
-          nationalDaysData.push(nationalDay);
+
+    title = title.split('–')[0].trim();
+    title = title.split('|')[0].trim();
+    title = title.toLowerCase().split(' ');
+    // console.log('title: ', title);
+    title = title
+      .map((word) => {
+        const dontCapitalize = [
+          'and',
+          'or',
+          'the',
+          'of',
+          'a',
+          'an',
+          'at',
+          'by',
+          'to',
+          'but',
+          'for',
+        ];
+        if (dontCapitalize.includes(word)) {
+          return word;
         }
+        return word[0].toUpperCase() + word.substring(1);
+      })
+      .join(' ');
+    const image: string | undefined = $(day)
+      .find(config.selectors.image)
+      .attr('src');
+    if (link) {
+      const descriptionData: string = await got(link)
+        .then(async (response) => response.body)
+        .catch((error) => {
+          console.error(`[national-day] Error: \n`, error);
+          return error;
+        });
+      const $desc = cheerio.load(descriptionData);
+      const description = $desc(config.selectors.description.container)
+        .find(config.selectors.description.text)
+        .first()
+        .text()
+        .trim();
+      // console.log(description);
+      if (title && link && description) {
+        const nationalDay: NationalDay = {
+          title,
+          link,
+          description,
+          image,
+        };
+        nationalDaysData.push(nationalDay);
       }
     }
   }
