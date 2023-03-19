@@ -48,7 +48,7 @@ jobs:
 
       - name: ⬆️ Update npm and install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm i --location=global npm && npm install --force
+        run: npm i --location=global npm && npm install
       
       - name: 🛠️ Run script to generate national day data
         run: npm run national-day
