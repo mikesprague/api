@@ -42,7 +42,7 @@ export interface TrendingRepoConfig extends SharedConfig {
 
   const config: TrendingRepoConfig = {
     urlToScrape: 'https://github.com/trending?spoken_language_code=en',
-    fileName: 'github-trending-repos.json',
+    fileName: 'index.json',
     ...sharedConfig,
   };
 
@@ -127,7 +127,7 @@ export interface TrendingRepoConfig extends SharedConfig {
     data: trendingReposData,
   };
 
-  await writeDataAsJsonFile(config.outputDir, config.fileName, apiData);
+  await writeDataAsJsonFile(`${config.outputDir}github-trending-repos/`, config.fileName, apiData);
 
   console.log(apiData);
 

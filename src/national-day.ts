@@ -56,7 +56,7 @@ export interface NationalDayConfig extends SharedConfig {
         text: 'h2 ~ p',
       },
     },
-    fileName: 'national-day.json',
+    fileName: 'index.json',
     ...sharedConfig,
   };
 
@@ -145,7 +145,7 @@ export interface NationalDayConfig extends SharedConfig {
     data: nationalDaysData,
   };
 
-  await writeDataAsJsonFile(config.outputDir, config.fileName, apiData);
+  await writeDataAsJsonFile(`${config.outputDir}national-day/`, config.fileName, apiData);
 
   console.log(apiData);
 
