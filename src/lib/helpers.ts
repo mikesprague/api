@@ -31,7 +31,7 @@ export const writeDataAsJsonFile = async <T extends object>(
   dataToWrite: T,
 ): Promise<void> => {
   if (!fs.existsSync(path)) {
-    await fs.mkdirSync(path);
+    await fs.mkdirSync(path, { recursive: true });
   }
   await fs.writeFileSync(
     `${path}${fileName}`,
