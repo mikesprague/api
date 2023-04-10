@@ -15,7 +15,7 @@
     "test": "echo \"No tests yet...\"",
     "typecheck": "tsc --noEmit",
     "typedoc": "typedoc --out ./docs --entryPointStrategy expand ./src --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
-    "typedoc-html": "typedoc --out ./dist/docs --entryPointStrategy expand ./src --excludeNotDocumented false --readme none --plugin none"
+    "typedoc-html": "typedoc --out ./dist/docs --entryPointStrategy expand ./src --excludeNotDocumented false --readme none"
   },
   "author": {
     "name": "Michael Sprague",
