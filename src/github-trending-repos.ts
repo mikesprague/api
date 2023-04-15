@@ -54,7 +54,7 @@ export interface TrendingRepoConfig extends SharedConfig {
     })
     .then((response) => response.body);
   const rowSelector = 'article.Box-row';
-  const linkTitleSelector = 'h1 > a';
+  const linkTitleSelector = 'h2 > a';
   const descriptionSelector = 'p';
   const languageSelector = 'div.f6.color-fg-muted.mt-2';
   const starsSelector = `${languageSelector} > a:nth-child(2)`;
