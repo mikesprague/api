@@ -48,7 +48,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "prettier": "2.8.8",
     "prettier-eslint": "15.0.1",
-    "rimraf": "5.0.0",
+    "rimraf": "5.0.1",
     "ts-node": "10.9.1",
     "typedoc": "0.24.7",
     "typedoc-plugin-markdown": "3.15.3",
