@@ -34,7 +34,7 @@
     "got": "13.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.22.6",
+    "@babel/core": "7.22.7",
     "@swc/core": "^1.3.68",
     "@types/cheerio": "0.22.31",
     "@types/node": "20.3.3",
