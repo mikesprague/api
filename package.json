@@ -9,8 +9,8 @@
     "clean": "rimraf dist/ && rimraf build/",
     "docs": "rimraf docs/ && npm run typedoc",
     "declarations": "rimraf types/ && tsc --emitDeclarationOnly",
-    "github-trending-repos": "TZ='America/New_York' ts-node ./src/github-trending-repos.ts",
-    "national-day": "TZ='America/New_York' ts-node ./src/national-day.ts",
+    "github-trending-repos": "TZ='America/New_York' tsx ./src/github-trending-repos.ts",
+    "national-day": "TZ='America/New_York' tsx ./src/national-day.ts",
     "posttypecheck": "npm run declarations",
     "test": "echo \"No tests yet...\"",
     "typecheck": "tsc --noEmit",
@@ -31,7 +31,9 @@
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
     "dayjs": "1.11.9",
-    "got": "13.0.0"
+    "got": "13.0.0",
+    "ts-node": "10.9.1",
+    "tsx": "3.12.8"
   },
   "devDependencies": {
     "@babel/core": "7.22.15",
