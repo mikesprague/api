@@ -33,7 +33,7 @@
     "dayjs": "1.11.9",
     "got": "13.0.0",
     "ts-node": "10.9.1",
-    "tsx": "3.12.8"
+    "tsx": "3.12.9"
   },
   "devDependencies": {
     "@babel/core": "7.22.17",
