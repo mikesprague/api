@@ -2,9 +2,9 @@ name: Build Endpoints
 
 on:
   push:
-    branches: 
+    branches:
       - main
-  
+
   schedule:
     - cron: "5 * * * *"
 
@@ -48,14 +48,14 @@ jobs:
 
       - name: ⬆️ Update npm and install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm i --location=global npm && npm install --force
-      
+        run: npm install --location=global npm && npm install
+
       - name: 🛠️ Run script to generate national day data
         run: npm run national-day
-      
+
       - name: 🛠️ Run script to generate trending repo data
         run: npm run github-trending-repos
-      
+
       - name: 🛠️ Run script to generate documentation
         run: npm run typedoc-html
 
