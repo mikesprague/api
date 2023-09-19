@@ -2,8 +2,8 @@ import cheerio from 'cheerio';
 import dayjs from 'dayjs';
 import got from 'got';
 
-import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 
 import {
   APIResults,
@@ -66,6 +66,7 @@ export interface TrendingRepoConfig extends SharedConfig {
   const trendingReposData: TrendingRepo[] = [];
 
   $(rowSelector).each((i, elem) => {
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const title = $(elem).find(linkTitleSelector).attr('href')!.substring(1);
     const link = `https://github.com${$(elem)
       .find(linkTitleSelector)
@@ -100,11 +101,7 @@ export interface TrendingRepoConfig extends SharedConfig {
       ? $(elem).find(languageColorSelector).attr('style')
       : undefined;
     const languageName = languageStyle
-      ? $(elem)
-          .find(languageNameSelector)
-          .text()
-          .replace(/\r?\n|\r/, '')
-          .trim()
+      ? $(elem).find(languageNameSelector).text().replace(/\r?\n|\r/, '').trim()
       : undefined;
 
     const trendingRepo: TrendingRepo = {
@@ -127,13 +124,17 @@ export interface TrendingRepoConfig extends SharedConfig {
     data: trendingReposData,
   };
 
-  await writeDataAsJsonFile(`${config.outputDir}github-trending-repos/`, config.fileName, apiData);
+  await writeDataAsJsonFile(
+    `${config.outputDir}github-trending-repos/`,
+    config.fileName,
+    apiData
+  );
 
   console.log(apiData);
 
   // output execution time
   const debugEnd = hrtime(debugStart);
   console.log(
-    `Execution time: ${debugEnd[0] * 1000 + debugEnd[1] / 1000000}ms`,
+    `Execution time: ${debugEnd[0] * 1000 + debugEnd[1] / 1000000}ms`
   );
 })();

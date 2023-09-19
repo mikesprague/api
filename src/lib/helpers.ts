@@ -11,7 +11,7 @@ export interface SharedConfig {
 export type APIResults<T> = {
   data: T[];
   lastUpdated: string;
-}
+};
 
 /**
  * @summary  writes an object to a file as a string in JSON format
@@ -28,14 +28,14 @@ export type APIResults<T> = {
 export const writeDataAsJsonFile = async <T extends object>(
   path: string,
   fileName: string,
-  dataToWrite: T,
+  dataToWrite: T
 ): Promise<void> => {
   if (!fs.existsSync(path)) {
     await fs.mkdirSync(path, { recursive: true });
   }
   await fs.writeFileSync(
     `${path}${fileName}`,
-    JSON.stringify(dataToWrite, null, 2),
+    JSON.stringify(dataToWrite, null, 2)
   );
 };
 

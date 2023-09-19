@@ -2,8 +2,8 @@ import cheerio from 'cheerio';
 import dayjs from 'dayjs';
 import got from 'got';
 
-import utc from 'dayjs/plugin/utc.js';
 import timezone from 'dayjs/plugin/timezone.js';
+import utc from 'dayjs/plugin/utc.js';
 
 import {
   APIResults,
@@ -47,7 +47,7 @@ export interface NationalDayConfig extends SharedConfig {
   const config: NationalDayConfig = {
     urlToScrape: 'https://nationaldaycalendar.com/what-day-is-it/',
     selectors: {
-      days: `.ultp-block-items-wrap.ultp-block-row .ultp-block-item .ultp-block-entry-content`,
+      days: '.ultp-block-items-wrap.ultp-block-row .ultp-block-item .ultp-block-entry-content',
       title: '.ultp-block-title',
       link: '.ultp-block-title a',
       image: '.ultp-block-image img',
@@ -73,7 +73,7 @@ export interface NationalDayConfig extends SharedConfig {
     //   return response.body;
     // })
     .catch((error) => {
-      console.error(`[national-day] Error: \n`, error);
+      console.error('[national-day] Error: \n', error);
       return error;
     });
 
@@ -84,6 +84,7 @@ export interface NationalDayConfig extends SharedConfig {
       .find(config.selectors.title)
       .text()
       .trim();
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const link = $(day).find(config.selectors.link).attr('href')!.trim();
 
     title = title.split('–')[0].trim();
@@ -118,7 +119,7 @@ export interface NationalDayConfig extends SharedConfig {
       const descriptionData: string = await got(link)
         .then(async (response) => response.body)
         .catch((error) => {
-          console.error(`[national-day] Error: \n`, error);
+          console.error('[national-day] Error: \n', error);
           return error;
         });
       const $desc = cheerio.load(descriptionData);
@@ -145,13 +146,17 @@ export interface NationalDayConfig extends SharedConfig {
     data: nationalDaysData,
   };
 
-  await writeDataAsJsonFile(`${config.outputDir}national-day/`, config.fileName, apiData);
+  await writeDataAsJsonFile(
+    `${config.outputDir}national-day/`,
+    config.fileName,
+    apiData
+  );
 
   console.log(apiData);
 
   // output execution time
   const debugEnd = hrtime(debugStart);
   console.log(
-    `Execution time: ${debugEnd[0] * 1000 + debugEnd[1] / 1000000}ms`,
+    `Execution time: ${debugEnd[0] * 1000 + debugEnd[1] / 1000000}ms`
   );
 })();
