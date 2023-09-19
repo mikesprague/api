@@ -6,21 +6,22 @@
   "type": "module",
   "scripts": {
     "build": "npx tsc",
-    "clean": "npx rimraf dist/ && rimraf build/",
+    "clean": "npx rimraf dist/ && npx rimraf build/",
     "docs": "npx rimraf docs/ && npm run typedoc",
-    "declarations": "rimraf types/ && tsc --emitDeclarationOnly",
-    "github-trending-repos": "TZ='America/New_York' tsx ./src/github-trending-repos.ts",
-    "national-day": "TZ='America/New_York' tsx ./src/national-day.ts",
+    "declarations": "npx rimraf types/ && tsc --emitDeclarationOnly",
+    "github-trending-repos": "TZ='America/New_York' npx tsx ./src/github-trending-repos.ts",
+    "national-day": "TZ='America/New_York' npx tsx ./src/national-day.ts",
     "posttypecheck": "npm run declarations",
     "test": "echo \"No tests yet...\"",
     "typecheck": "npx tsc --noEmit",
-    "typedoc": "typedoc --out ./docs --entryPointStrategy expand ./src --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
-    "typedoc-html": "typedoc --out ./dist/docs --entryPointStrategy expand ./src --excludeNotDocumented false --readme none"
+    "typedoc": "npx typedoc --out ./docs --entryPointStrategy expand ./src --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
+    "typedoc-html": "npx typedoc --out ./dist/docs --entryPointStrategy expand ./src --excludeNotDocumented false --readme none"
   },
   "author": {
     "name": "Michael Sprague",
     "email": "mikesprague@gmail.com"
   },
+  "license": "MIT",
   "repository": {
     "url": "https://github.com/mikesprague/api"
   },
@@ -34,7 +35,6 @@
     "got": "13.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.22.20",
     "@biomejs/biome": "1.2.2",
     "@types/cheerio": "0.22.32",
     "@types/node": "20.6.2",
