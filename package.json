@@ -41,7 +41,7 @@
     "cross-env": "7.0.3",
     "cz-git": "1.7.1",
     "rimraf": "5.0.1",
-    "tsx": "3.12.10",
+    "tsx": "3.13.0",
     "typedoc": "0.25.1",
     "typedoc-plugin-markdown": "3.16.0",
     "typescript": "5.2.2"
