@@ -40,7 +40,7 @@
     "@types/node": "20.7.0",
     "cross-env": "7.0.3",
     "cz-git": "1.7.1",
-    "rimraf": "5.0.4",
+    "rimraf": "5.0.5",
     "tsx": "3.13.0",
     "typedoc": "0.25.1",
     "typedoc-plugin-markdown": "3.16.0",
