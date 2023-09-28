@@ -45,15 +45,17 @@ export interface NationalDayConfig extends SharedConfig {
   const debugStart = hrtime();
 
   const config: NationalDayConfig = {
-    urlToScrape: 'https://nationaldaycalendar.com/what-day-is-it/',
+    urlToScrape: `https://www.daysoftheyear.com/days/${dayjs().format(
+      'MMM'
+    )}/${dayjs().format('D')}/`,
     selectors: {
-      days: '.ultp-block-items-wrap.ultp-block-row .ultp-block-item .ultp-block-entry-content',
-      title: '.ultp-block-title',
-      link: '.ultp-block-title a',
-      image: '.ultp-block-image img',
+      days: '.section__cards .card--day',
+      title: '.card__title.heading',
+      link: '.card__title.heading a',
+      image: '.card__media.card__image img',
       description: {
-        container: '.entry-content.wp-block-post-content',
-        text: 'h2 ~ p',
+        container: 'header .card.card--day',
+        text: '.card__text p',
       },
     },
     fileName: 'index.json',
@@ -128,7 +130,6 @@ export interface NationalDayConfig extends SharedConfig {
         .first()
         .text()
         .trim();
-      // console.log(description);
       if (title && link && description) {
         const nationalDay: NationalDay = {
           title,
