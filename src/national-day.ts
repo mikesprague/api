@@ -45,9 +45,11 @@ export interface NationalDayConfig extends SharedConfig {
   const debugStart = hrtime();
 
   const config: NationalDayConfig = {
-    urlToScrape: `https://www.daysoftheyear.com/days/${dayjs().format(
-      'MMM'
-    )}/${dayjs().format('D')}/`,
+    urlToScrape: `https://www.daysoftheyear.com/days/${
+      dayjs().format('MMM').toLowerCase() === 'sep'
+        ? 'sept'
+        : dayjs().format('MMM').toLowerCase()
+    }/${dayjs().format('D')}/`,
     selectors: {
       days: '.section__cards .card--day',
       title: '.card__title.heading',
@@ -130,7 +132,13 @@ export interface NationalDayConfig extends SharedConfig {
         .first()
         .text()
         .trim();
-      if (title && link && description) {
+      if (
+        title &&
+        link &&
+        description &&
+        (title.toLowerCase().includes('day') ||
+          title.toLowerCase().includes('week'))
+      ) {
         const nationalDay: NationalDay = {
           title,
           link,
