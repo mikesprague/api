@@ -49,7 +49,7 @@ export interface NationalDayConfig extends SharedConfig {
       dayjs().format('MMM').toLowerCase() === 'sep'
         ? 'sept'
         : dayjs().format('MMM').toLowerCase()
-    }/${dayjs().format('D')}/`,
+    }/${dayjs().format('DD')}/`,
     selectors: {
       days: '.section__cards .card--day',
       title: '.card__title.heading',
