@@ -26,8 +26,8 @@
     "url": "https://github.com/mikesprague/api"
   },
   "engines": {
-    "node": ">= 18.x",
-    "npm": ">= 8.x"
+    "node": ">= 20.x",
+    "npm": ">= 10.x"
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
