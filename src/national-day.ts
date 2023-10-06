@@ -6,7 +6,6 @@ import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
 
 import {
-  APIResults,
   SharedConfig,
   StringOrNull,
   sharedConfig,
@@ -41,6 +40,15 @@ export interface NationalDayConfig extends SharedConfig {
   fileName: string;
 }
 
+export type NationalDayAPIResults = {
+  data: {
+    days: NationalDay[];
+    weeks: NationalDay[];
+    months: NationalDay[];
+  };
+  lastUpdated: string;
+};
+
 (async () => {
   const debugStart = hrtime();
 
@@ -65,6 +73,9 @@ export interface NationalDayConfig extends SharedConfig {
   };
 
   const nationalDaysData: NationalDay[] = [];
+  const nationalWeeksData: NationalDay[] = [];
+  const nationalMonthsData: NationalDay[] = [];
+
   const pageData: string = await got
     .get(config.urlToScrape, {
       headers: {
@@ -132,27 +143,46 @@ export interface NationalDayConfig extends SharedConfig {
         .first()
         .text()
         .trim();
-      if (
-        title &&
-        link &&
-        description &&
-        (title.toLowerCase().includes('day') ||
-          title.toLowerCase().includes('week'))
-      ) {
-        const nationalDay: NationalDay = {
-          title,
-          link,
-          description,
-          image,
-        };
-        nationalDaysData.push(nationalDay);
+
+      if (title && link && description) {
+        if (title.toLowerCase().includes('day')) {
+          const nationalDay: NationalDay = {
+            title,
+            link,
+            description,
+            image,
+          };
+          nationalDaysData.push(nationalDay);
+        }
+        if (title.toLowerCase().includes('week')) {
+          const nationalWeek: NationalDay = {
+            title,
+            link,
+            description,
+            image,
+          };
+          nationalWeeksData.push(nationalWeek);
+        }
+        if (title.toLowerCase().includes('month')) {
+          const nationalMonth: NationalDay = {
+            title,
+            link,
+            description,
+            image,
+          };
+          nationalMonthsData.push(nationalMonth);
+        }
       }
     }
   }
 
-  const apiData: APIResults<NationalDay> = {
+  const apiData: NationalDayAPIResults = {
     lastUpdated: dayjs().tz(config.defaultTimezone).toISOString(),
-    data: nationalDaysData,
+    data: {
+      days: nationalDaysData,
+      weeks: nationalWeeksData,
+      months: nationalMonthsData,
+    },
   };
 
   await writeDataAsJsonFile(

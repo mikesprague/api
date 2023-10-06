@@ -8,11 +8,6 @@ export interface SharedConfig {
   outputDir: string;
 }
 
-export type APIResults<T> = {
-  data: T[];
-  lastUpdated: string;
-};
-
 /**
  * @summary  writes an object to a file as a string in JSON format
  * @example  await writeDataAsJsonFile(

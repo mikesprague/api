@@ -6,7 +6,6 @@ import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
 
 import {
-  APIResults,
   SharedConfig,
   StringOrNull,
   sharedConfig,
@@ -36,6 +35,11 @@ export interface TrendingRepoConfig extends SharedConfig {
   urlToScrape: string;
   fileName: string;
 }
+
+export type TrendingRepoAPIResults = {
+  data: TrendingRepo[];
+  lastUpdated: string;
+};
 
 (async () => {
   const debugStart = hrtime();
@@ -119,7 +123,7 @@ export interface TrendingRepoConfig extends SharedConfig {
     trendingReposData.push(trendingRepo);
   });
 
-  const apiData: APIResults<TrendingRepo> = {
+  const apiData: TrendingRepoAPIResults = {
     lastUpdated: dayjs().tz(config.defaultTimezone).toISOString(),
     data: trendingReposData,
   };
