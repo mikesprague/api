@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: "18"
+  NODE_VERSION: "20"
   OUTPUT_FILE_DIR: "dist/"
 
 jobs:
