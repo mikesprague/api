@@ -53,15 +53,15 @@ jobs:
         run: npm install --location=global npm && npm install
 
       - name: 🛠️ Run script to generate national day data
-        if: github.event.schedule != '5 * * * *'
+        if: github.event.schedule == '5 * * * *' || github.event_name == 'workflow_dispatch'
         run: npm run national-day
 
       - name: 🛠️ Run script to generate national week data
-        if: github.event.schedule != '5 7 * * SUN'
+        if: github.event.schedule == '5 7 * * SUN' || github.event_name == 'workflow_dispatch'
         run: npm run national-week
 
       - name: 🛠️ Run script to generate national month data
-        if: github.event.schedule != '5 4 1,8,15,22,29 * *'
+        if: github.event.schedule == '5 4 1,8,15,22,29 * *' || github.event_name == 'workflow_dispatch'
         run: npm run national-month
 
       - name: 🛠️ Run script to generate trending repo data
