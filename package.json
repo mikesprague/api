@@ -11,6 +11,8 @@
     "declarations": "npx rimraf types/ && tsc --emitDeclarationOnly",
     "github-trending-repos": "TZ='America/New_York' npx tsx ./src/github-trending-repos.ts",
     "national-day": "TZ='America/New_York' npx tsx ./src/national-day.ts",
+    "national-week": "TZ='America/New_York' npx tsx ./src/national-week.ts",
+    "national-month": "TZ='America/New_York' npx tsx ./src/national-month.ts",
     "posttypecheck": "npm run declarations",
     "test": "echo \"No tests yet...\"",
     "typecheck": "npx tsc --noEmit",

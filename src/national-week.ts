@@ -64,7 +64,7 @@ export interface NationalDayConfig extends SharedConfig {
     ...sharedConfig,
   };
 
-  const nationalDaysData: NationalDay[] = [];
+  const nationalWeeksData: NationalDay[] = [];
 
   const pageData: string = await got
     .get(config.urlToScrape, {
@@ -120,7 +120,7 @@ export interface NationalDayConfig extends SharedConfig {
     const image: string | undefined = $(day)
       .find(config.selectors.image)
       .attr('src');
-    if (link && !title?.includes('week') && !title?.includes('month')) {
+    if (link && title?.includes('week')) {
       const descriptionData: string = await got(link)
         .then(async (response) => response.body)
         .catch((error) => {
@@ -135,18 +135,14 @@ export interface NationalDayConfig extends SharedConfig {
         .trim();
 
       if (title && link && description) {
-        if (
-          title.toLowerCase().includes('day') &&
-          !title.includes('week') &&
-          !title.includes('month')
-        ) {
-          const nationalDay: NationalDay = {
+        if (title.toLowerCase().includes('week')) {
+          const nationalWeek: NationalDay = {
             title,
             link,
             description,
             image,
           };
-          nationalDaysData.push(nationalDay);
+          nationalWeeksData.push(nationalWeek);
         }
       }
     }
@@ -154,11 +150,11 @@ export interface NationalDayConfig extends SharedConfig {
 
   const apiData: APIResults<NationalDay> = {
     lastUpdated: dayjs().tz(config.defaultTimezone).toISOString(),
-    data: nationalDaysData,
+    data: nationalWeeksData,
   };
 
   await writeDataAsJsonFile(
-    `${config.outputDir}national-day/`,
+    `${config.outputDir}national-week/`,
     config.fileName,
     apiData
   );

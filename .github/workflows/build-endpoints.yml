@@ -7,6 +7,8 @@ on:
 
   schedule:
     - cron: "5 * * * *"
+    - cron: '5 7 * * SUN'
+    - cron: '5 4 1,8,15,22,29 * *'
 
   workflow_dispatch:
 
@@ -51,7 +53,16 @@ jobs:
         run: npm install --location=global npm && npm install
 
       - name: 🛠️ Run script to generate national day data
+        if: github.event.schedule != '5 * * * *'
         run: npm run national-day
+
+      - name: 🛠️ Run script to generate national week data
+        if: github.event.schedule != '5 7 * * SUN'
+        run: npm run national-week
+
+      - name: 🛠️ Run script to generate national month data
+        if: github.event.schedule != '5 4 1,8,15,22,29 * *'
+        run: npm run national-month
 
       - name: 🛠️ Run script to generate trending repo data
         run: npm run github-trending-repos
