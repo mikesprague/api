@@ -52,13 +52,40 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm install --location=global npm && npm install
 
+      - name: ⚡ Cache national day data
+        uses: actions/cache@v3
+        id: national-day-cache
+        with:
+          path: ${{ env.OUTPUT_FILE_DIR }}national-day/
+          key: ${{ runner.os }}-national-day-${{ env.NODE_VERSION }}-${{ hashFiles('**/national-day/index.json') }}
+          restore-keys: |
+            ${{ runner.os }}-national-day-${{ env.NODE_VERSION }}-
+
       - name: 🛠️ Run script to generate national day data
         if: github.event.schedule == '5 * * * *' || github.event_name == 'workflow_dispatch'
         run: npm run national-day
 
+      - name: ⚡ Cache national week data
+        uses: actions/cache@v3
+        id: national-week-cache
+        with:
+          path: ${{ env.OUTPUT_FILE_DIR }}national-week/
+          key: ${{ runner.os }}-national-week-${{ env.NODE_VERSION }}-${{ hashFiles('**/national-week/index.json') }}
+          restore-keys: |
+            ${{ runner.os }}-national-week-${{ env.NODE_VERSION }}-
+
       - name: 🛠️ Run script to generate national week data
         if: github.event.schedule == '5 7 * * SUN' || github.event_name == 'workflow_dispatch'
         run: npm run national-week
+
+      - name: ⚡ Cache national month data
+        uses: actions/cache@v3
+        id: national-month-cache
+        with:
+          path: ${{ env.OUTPUT_FILE_DIR }}national-month/
+          key: ${{ runner.os }}-national-month-${{ env.NODE_VERSION }}-${{ hashFiles('**/national-month/index.json') }}
+          restore-keys: |
+            ${{ runner.os }}-national-month-${{ env.NODE_VERSION }}-
 
       - name: 🛠️ Run script to generate national month data
         if: github.event.schedule == '5 4 1,8,15,22,29 * *' || github.event_name == 'workflow_dispatch'
