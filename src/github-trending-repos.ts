@@ -105,7 +105,11 @@ export type TrendingRepoAPIResults = {
       ? $(elem).find(languageColorSelector).attr('style')
       : undefined;
     const languageName = languageStyle
-      ? $(elem).find(languageNameSelector).text().replace(/\r?\n|\r/, '').trim()
+      ? $(elem)
+          .find(languageNameSelector)
+          .text()
+          .replace(/\r?\n|\r/, '')
+          .trim()
       : undefined;
 
     const trendingRepo: TrendingRepo = {
