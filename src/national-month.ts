@@ -56,8 +56,8 @@ export interface NationalDayConfig extends SharedConfig {
       link: '.card__title.heading a',
       image: '.card__media.card__image img',
       description: {
-        container: 'header .card.card--day',
-        text: '.card__text p',
+        container: '.card--page',
+        text: 'main > p',
       },
     },
     fileName: 'index.json',
