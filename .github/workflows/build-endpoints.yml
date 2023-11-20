@@ -50,7 +50,7 @@ jobs:
 
       - name: ⬆️ Update npm and install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install --location=global npm && npm install
+        run: npm install --location=global npm && npm install --force
 
       - name: ⚡ Cache national day data
         uses: actions/cache@v3
