@@ -44,7 +44,7 @@
     "cz-git": "1.7.1",
     "rimraf": "5.0.5",
     "tsx": "4.5.0",
-    "typedoc": "0.25.3",
+    "typedoc": "0.25.4",
     "typedoc-plugin-markdown": "3.17.1",
     "typescript": "5.3.2"
   },
