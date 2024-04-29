@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
-    "dayjs": "1.11.10",
+    "dayjs": "1.11.11",
     "got": "14.2.1"
   },
   "devDependencies": {
