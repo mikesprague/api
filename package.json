@@ -45,7 +45,7 @@
     "rimraf": "5.0.7",
     "tsx": "4.15.7",
     "typedoc": "0.26.3",
-    "typedoc-plugin-markdown": "4.1.0",
+    "typedoc-plugin-markdown": "4.1.1",
     "typescript": "5.5.2"
   },
   "config": {
