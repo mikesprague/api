@@ -41,7 +41,7 @@
     "@types/cheerio": "0.22.35",
     "@types/node": "20.14.11",
     "cross-env": "7.0.3",
-    "cz-git": "1.9.3",
+    "cz-git": "1.9.4",
     "rimraf": "6.0.1",
     "tsx": "4.16.2",
     "typedoc": "0.26.4",
