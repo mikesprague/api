@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.0",
-    "@types/cheerio": "0.22.35",
+    "@types/cheerio": "1.0.0",
     "@types/node": "24.0.3",
     "cross-env": "7.0.3",
     "cz-git": "1.11.2",
