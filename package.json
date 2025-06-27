@@ -37,7 +37,7 @@
     "got": "14.4.7"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.5",
+    "@biomejs/biome": "2.0.6",
     "@types/cheerio": "1.0.0",
     "@types/node": "24.0.4",
     "cross-env": "7.0.3",
