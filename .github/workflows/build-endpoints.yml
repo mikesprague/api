@@ -39,7 +39,7 @@ jobs:
           cache: npm
 
       - name: ⚡ Cache node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: cache
         with:
           path: node_modules
@@ -52,7 +52,7 @@ jobs:
         run: npm install --location=global npm && npm install --force
 
       - name: ⚡ Cache national day data
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: national-day-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-day/
@@ -65,7 +65,7 @@ jobs:
         run: npm run national-day
 
       - name: ⚡ Cache national week data
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: national-week-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-week/
@@ -78,7 +78,7 @@ jobs:
         run: npm run national-week
 
       - name: ⚡ Cache national month data
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: national-month-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-month/
