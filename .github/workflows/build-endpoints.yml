@@ -99,7 +99,7 @@ jobs:
 
       - name: 📦 Create and upload build artifact
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: api-endpoints
           path: ${{ env.OUTPUT_FILE_DIR }}
