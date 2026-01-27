@@ -32,7 +32,7 @@
     "npm": ">= 10.x"
   },
   "dependencies": {
-    "cheerio": "1.1.2",
+    "cheerio": "1.2.0",
     "dayjs": "1.11.19",
     "got": "14.6.6"
   },
