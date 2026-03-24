@@ -1,34 +1,40 @@
 {
-  "compilerOptions": { /* Docs: https://www.typescriptlang.org/tsconfig */
-    "target": "ESNext",
-    "module": "NodeNext",
-    "outDir": "build",
-    "rootDir": "src",
+  "compilerOptions": {
     "strict": true,
-    "declaration": true,
-    "declarationDir": "types",
     "experimentalDecorators": true,
     "strictNullChecks": true,
-    "moduleResolution": "NodeNext",
-    "types": [
-      "node"
-    ],
-    "lib": [
-      "ESNext"
-    ],
+    "target": "es2022",
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "strictFunctionTypes": true,
+    "rootDir": "src",
+    "outDir": "dist",
+    "types": ["node"],
+    "lib": ["es2022"],
+    "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "ts-node": {
-    "esm": true,
-    "swc": true
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "composite": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "<node_internals>/**"
+    "<node_internals>/**",
+    "node_modules",
+    ".history",
+    ".git",
+    ".github",
+    "./src/**/scratch*.ts",
+    "./src/**/*.d.ts",
+    "./types/*.d.ts",
+    "./types/*.ts"
   ]
 }
 
