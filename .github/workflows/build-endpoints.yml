@@ -7,8 +7,8 @@ on:
 
   schedule:
     - cron: "5 * * * *"
-    - cron: '5 7 * * SUN'
-    - cron: '5 4 1,8,15,22,29 * *'
+    - cron: "5 7 * * SUN"
+    - cron: "5 4 1,8,15,22,29 * *"
 
   workflow_dispatch:
 
@@ -31,71 +31,68 @@ jobs:
       - name: 👷 Checkout Repo
         uses: actions/checkout@v6
 
-      - name: 🏗️ Setup Node.js ${{ vars.NODE_VERSION }} environment
-        uses: actions/setup-node@v6
-        with:
-          node-version: ${{ vars.NODE_VERSION }}
-          check-latest: true
-          cache: npm
+      - name: 🏗️ Setup Bun environment
+        id: setup-bun
+        uses: oven-sh/setup-bun@v2
 
       - name: ⚡ Cache node_modules
         uses: actions/cache@v5
         id: cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ vars.NODE_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/bun.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ vars.NODE_VERSION }}-
+            ${{ runner.os }}-node-${{ steps.setup-bun.outputs.bun-version }}-
 
-      - name: ⬆️ Update npm and install dependencies
+      - name: ⬆️ Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install --location=global npm && npm install --force
+        run: bun install
 
       - name: ⚡ Cache national day data
         uses: actions/cache@v5
         id: national-day-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-day/
-          key: ${{ runner.os }}-national-day-${{ vars.NODE_VERSION }}-${{ hashFiles('**/national-day/index.json') }}
+          key: ${{ runner.os }}-national-day-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/national-day/index.json') }}
           restore-keys: |
-            ${{ runner.os }}-national-day-${{ vars.NODE_VERSION }}-
+            ${{ runner.os }}-national-day-${{ steps.setup-bun.outputs.bun-version }}-
 
       - name: 🛠️ Run script to generate national day data
         if: github.event.schedule == '5 * * * *' || github.event_name == 'workflow_dispatch'
-        run: npm run national-day
+        run: bun run national-day
 
       - name: ⚡ Cache national week data
         uses: actions/cache@v5
         id: national-week-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-week/
-          key: ${{ runner.os }}-national-week-${{ vars.NODE_VERSION }}-${{ hashFiles('**/national-week/index.json') }}
+          key: ${{ runner.os }}-national-week-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/national-week/index.json') }}
           restore-keys: |
-            ${{ runner.os }}-national-week-${{ vars.NODE_VERSION }}-
+            ${{ runner.os }}-national-week-${{ steps.setup-bun.outputs.bun-version }}-
 
       - name: 🛠️ Run script to generate national week data
         if: github.event.schedule == '5 7 * * SUN' || github.event_name == 'workflow_dispatch'
-        run: npm run national-week
+        run: bun run national-week
 
       - name: ⚡ Cache national month data
         uses: actions/cache@v5
         id: national-month-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-month/
-          key: ${{ runner.os }}-national-month-${{ vars.NODE_VERSION }}-${{ hashFiles('**/national-month/index.json') }}
+          key: ${{ runner.os }}-national-month-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/national-month/index.json') }}
           restore-keys: |
-            ${{ runner.os }}-national-month-${{ vars.NODE_VERSION }}-
+            ${{ runner.os }}-national-month-${{ steps.setup-bun.outputs.bun-version }}-
 
       - name: 🛠️ Run script to generate national month data
         if: github.event.schedule == '5 4 1,8,15,22,29 * *' || github.event_name == 'workflow_dispatch'
-        run: npm run national-month
+        run: bun run national-month
 
       - name: 🛠️ Run script to generate trending repo data
-        run: npm run github-trending-repos
+        run: bun run github-trending-repos
 
       - name: 🛠️ Run script to generate documentation
         if: always()
-        run: npm run typedoc-html
+        run: bun run typedoc-html
 
       - name: 📦 Create and upload build artifact
         if: always()
