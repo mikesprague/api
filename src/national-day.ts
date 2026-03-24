@@ -29,6 +29,7 @@ export type NationalDay = {
 export interface NationalDayConfig extends SharedConfig {
   urlToScrape: string;
   selectors: {
+    daysContainer: string;
     days: string;
     title: string;
     link: string;
@@ -51,13 +52,14 @@ export interface NationalDayConfig extends SharedConfig {
         : dayjs().format('MMM').toLowerCase()
     }/${dayjs().format('DD')}/`,
     selectors: {
-      days: '.section__cards .card--day',
-      title: '.card__title.heading',
-      link: '.card__title.heading a',
-      image: '.card__media.card__image img',
+      daysContainer: 'section:has(div.cards-grid.cards-grid--4) > div.cards-grid.cards-grid--4',
+      days: 'article.card',
+      title: '.card__content > h3',
+      link: '.card__content > h3 > a',
+      image: '.card__media img',
       description: {
-        container: '.card--page',
-        text: 'main > p',
+        container: 'main#content',
+        text: 'article.single__content > p',
       },
     },
     fileName: 'index.json',
@@ -65,6 +67,8 @@ export interface NationalDayConfig extends SharedConfig {
   };
 
   const nationalDaysData: NationalDay[] = [];
+
+  console.log(`[national-day] Scraping data from: ${config.urlToScrape}`);
 
   const pageData: string = await got
     .get(config.urlToScrape, {
@@ -83,7 +87,11 @@ export interface NationalDayConfig extends SharedConfig {
     });
 
   const $ = cheerio.load(pageData);
-  const days = $(config.selectors.days);
+  const daysContainer = $(config.selectors.daysContainer);
+  const days = $(daysContainer[0]).find(config.selectors.days).toArray();
+
+  console.log(`[national-day] Found ${days.length} national days.`);
+
   for await (const day of $(days)) {
     let title: string | string[] = $(day)
       .find(config.selectors.title)
