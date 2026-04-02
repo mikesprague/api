@@ -35,7 +35,7 @@
   "dependencies": {
     "cheerio": "1.2.0",
     "dayjs": "1.11.20",
-    "got": "14.6.6"
+    "got": "15.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.10",
