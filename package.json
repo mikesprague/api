@@ -38,7 +38,7 @@
     "got": "15.0.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.11",
     "@types/cheerio": "1.0.0",
     "@types/node": "25.5.2",
     "bun": "1.3.11",
