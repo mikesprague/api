@@ -6,10 +6,7 @@ on:
       - main
 
   schedule:
-    - cron: "5 */6 * * *"
-    - cron: "5 7 * * SUN"
-    - cron: "5 4 1,8,15,22,29 * *"
-
+    - cron: "5 */6 * * *" # national day
   workflow_dispatch:
 
 permissions:
@@ -60,32 +57,6 @@ jobs:
       - name: 🛠️ Run script to generate national day data
         if: github.event.schedule == '5 */6 * * *' || github.event_name == 'workflow_dispatch'
         run: bun run national-day
-
-      - name: ⚡ Cache national week data
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        id: national-week-cache
-        with:
-          path: ${{ env.OUTPUT_FILE_DIR }}national-week/
-          key: ${{ runner.os }}-national-week-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/national-week/index.json') }}
-          restore-keys: |
-            ${{ runner.os }}-national-week-${{ steps.setup-bun.outputs.bun-version }}-
-
-      - name: 🛠️ Run script to generate national week data
-        if: github.event.schedule == '5 7 * * SUN' || github.event_name == 'workflow_dispatch'
-        run: bun run national-week
-
-      - name: ⚡ Cache national month data
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        id: national-month-cache
-        with:
-          path: ${{ env.OUTPUT_FILE_DIR }}national-month/
-          key: ${{ runner.os }}-national-month-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/national-month/index.json') }}
-          restore-keys: |
-            ${{ runner.os }}-national-month-${{ steps.setup-bun.outputs.bun-version }}-
-
-      - name: 🛠️ Run script to generate national month data
-        if: github.event.schedule == '5 4 1,8,15,22,29 * *' || github.event_name == 'workflow_dispatch'
-        run: bun run national-month
 
       - name: 🛠️ Run script to generate trending repo data
         run: bun run github-trending-repos

@@ -1,7 +1,5 @@
 import * as cheerio from 'cheerio';
 import dayjs from 'dayjs';
-import got from 'got';
-
 import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
 
@@ -11,7 +9,7 @@ import {
   StringOrNull,
   sharedConfig,
   writeDataAsJsonFile,
-} from './lib/helpers.js';
+} from './lib/helpers';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -22,7 +20,6 @@ const { hrtime } = process;
 export type NationalDay = {
   title: string;
   link: string;
-  description: string;
   image?: StringOrNull;
 };
 
@@ -34,10 +31,6 @@ export interface NationalDayConfig extends SharedConfig {
     title: string;
     link: string;
     image: string;
-    description: {
-      container: string;
-      text: string;
-    };
   };
   fileName: string;
 }
@@ -52,15 +45,12 @@ export interface NationalDayConfig extends SharedConfig {
         : dayjs().format('MMM').toLowerCase()
     }/${dayjs().format('DD')}/`,
     selectors: {
-      daysContainer: 'section:has(div.cards-grid.cards-grid--4) > div.cards-grid.cards-grid--4',
+      daysContainer:
+        'section:has(div.cards-grid.cards-grid--4) > div.cards-grid.cards-grid--4',
       days: 'article.card',
       title: '.card__content > h3',
       link: '.card__content > h3 > a',
       image: '.card__media img',
-      description: {
-        container: 'main#content',
-        text: 'article.single__content > p',
-      },
     },
     fileName: 'index.json',
     ...sharedConfig,
@@ -70,16 +60,17 @@ export interface NationalDayConfig extends SharedConfig {
 
   console.log(`[national-day] Scraping data from: ${config.urlToScrape}`);
 
-  const pageData: string = await got
-    .get(config.urlToScrape, {
-      headers: {
-        'User-Agent': config.userAgent,
-      },
-    })
-    .then(async (response) => response.body)
+  const pageData: string = await fetch(config.urlToScrape, {
+    headers: {
+      'User-Agent': config.userAgent,
+    },
+  })
+    .then(async (response) => response.text())
     // .then(async (response) => {
-    //   console.log(response.body);
-    //   return response.body;
+    //   console.log(await response.text());
+    //   let responseText = response.clone();
+    //   responseText = await responseText.text();
+    //   return responseText;
     // })
     .catch((error) => {
       console.error('[national-day] Error: \n', error);
@@ -97,7 +88,7 @@ export interface NationalDayConfig extends SharedConfig {
       .find(config.selectors.title)
       .text()
       .trim();
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+
     const link = $(day).find(config.selectors.link).attr('href')!.trim();
 
     title = title.split('–')[0].trim();
@@ -129,20 +120,7 @@ export interface NationalDayConfig extends SharedConfig {
       .find(config.selectors.image)
       .attr('src');
     if (link && !title?.includes('week') && !title?.includes('month')) {
-      const descriptionData: string = await got(link)
-        .then(async (response) => response.body)
-        .catch((error) => {
-          console.error('[national-day] Error: \n', error);
-          return error;
-        });
-      const $desc = cheerio.load(descriptionData);
-      const description = $desc(config.selectors.description.container)
-        .find(config.selectors.description.text)
-        .first()
-        .text()
-        .trim();
-
-      if (title && link && description) {
+      if (title && link) {
         if (
           title.toLowerCase().includes('day') &&
           !title.includes('week') &&
@@ -151,7 +129,6 @@ export interface NationalDayConfig extends SharedConfig {
           const nationalDay: NationalDay = {
             title,
             link,
-            description,
             image,
           };
           nationalDaysData.push(nationalDay);

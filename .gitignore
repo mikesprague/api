@@ -108,3 +108,5 @@ dist/
 build/
 api.code-workspace
 *scratch*.ts
+national-month.ts
+national-week.ts

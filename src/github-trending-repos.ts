@@ -1,9 +1,8 @@
 import * as cheerio from 'cheerio';
 import dayjs from 'dayjs';
-import got from 'got';
-
 import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
+import got from 'got';
 
 import {
   SharedConfig,
