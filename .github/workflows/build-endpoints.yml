@@ -6,7 +6,7 @@ on:
       - main
 
   schedule:
-    - cron: "5 * * * *"
+    - cron: "5 */6 * * *"
     - cron: "5 7 * * SUN"
     - cron: "5 4 1,8,15,22,29 * *"
 
@@ -28,19 +28,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 👷 Checkout Repo
-        uses: actions/checkout@v6
+      - name: 👷  Checkout Repo
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: 🏗️ Setup Bun environment
         id: setup-bun
-        uses: oven-sh/setup-bun@v2
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
 
-      - name: ⚡ Cache node_modules
-        uses: actions/cache@v5
+      - name: ⚡  Cache node_modules
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         id: cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/bun.lock') }}
+          key: ${{ runner.os }}-node-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('bun.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ steps.setup-bun.outputs.bun-version }}-
 
@@ -49,7 +49,7 @@ jobs:
         run: bun install
 
       - name: ⚡ Cache national day data
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         id: national-day-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-day/
@@ -58,11 +58,11 @@ jobs:
             ${{ runner.os }}-national-day-${{ steps.setup-bun.outputs.bun-version }}-
 
       - name: 🛠️ Run script to generate national day data
-        if: github.event.schedule == '5 * * * *' || github.event_name == 'workflow_dispatch'
+        if: github.event.schedule == '5 */6 * * *' || github.event_name == 'workflow_dispatch'
         run: bun run national-day
 
       - name: ⚡ Cache national week data
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         id: national-week-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-week/
@@ -75,7 +75,7 @@ jobs:
         run: bun run national-week
 
       - name: ⚡ Cache national month data
-        uses: actions/cache@v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
         id: national-month-cache
         with:
           path: ${{ env.OUTPUT_FILE_DIR }}national-month/
@@ -96,7 +96,7 @@ jobs:
 
       - name: 📦 Create and upload build artifact
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: api-endpoints
           path: ${{ env.OUTPUT_FILE_DIR }}

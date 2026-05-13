@@ -1,40 +1,35 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "experimentalDecorators": true,
-    "strictNullChecks": true,
-    "target": "es2022",
-    "module": "es2022",
-    "moduleResolution": "bundler",
-    "strictFunctionTypes": true,
-    "rootDir": "src",
-    "outDir": "dist",
-    "types": ["node"],
-    "lib": ["es2022"],
+    "composite": true,
+    "declarationDir": "types",
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
-    "composite": true,
-    "emitDecoratorMetadata": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "lib": ["es2022"],
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "outDir": "dist",
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "target": "es2022",
+    "types": ["node", "bun-types"]
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["./src/**/*.ts"],
   "exclude": [
-    "node_modules",
-    "<node_internals>/**",
-    "node_modules",
-    ".history",
     ".git",
     ".github",
-    "./src/**/scratch*.ts",
-    "./src/**/*.d.ts",
-    "./types/*.d.ts",
-    "./types/*.ts"
+    ".history",
+    "dist",
+    "docs",
+    "node_modules",
+    "types",
+    "src/**/*.d.ts",
+    "./**/scratch*.ts",
+    "<node_internals>/**"
   ]
 }
-

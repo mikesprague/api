@@ -15,3 +15,7 @@ export interface TrendingRepoConfig extends SharedConfig {
     urlToScrape: string;
     fileName: string;
 }
+export type TrendingRepoAPIResults = {
+    data: TrendingRepo[];
+    lastUpdated: string;
+};
