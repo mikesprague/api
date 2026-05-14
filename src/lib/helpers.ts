@@ -1,17 +1,6 @@
 import fs from 'node:fs';
 
-export type StringOrNull = string | null;
-
-export interface SharedConfig {
-  defaultTimezone: string;
-  userAgent: string;
-  outputDir: string;
-}
-
-export type APIResults<T> = {
-  data: T[];
-  lastUpdated: string;
-};
+import type { SharedConfig } from './types.js';
 
 /**
  * @summary  writes an object to a file as a string in JSON format
