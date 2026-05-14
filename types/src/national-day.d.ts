@@ -3,6 +3,7 @@ export type NationalDay = {
     title: string;
     link: string;
     image?: StringOrNull;
+    description?: StringOrNull;
 };
 export interface NationalDayConfig extends SharedConfig {
     urlToScrape: string;
@@ -12,6 +13,10 @@ export interface NationalDayConfig extends SharedConfig {
         title: string;
         link: string;
         image: string;
+        description: {
+            container: string;
+            text: string;
+        };
     };
     fileName: string;
 }

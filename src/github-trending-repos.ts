@@ -69,7 +69,6 @@ export type TrendingRepoAPIResults = {
   const trendingReposData: TrendingRepo[] = [];
 
   $(rowSelector).each((i, elem) => {
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const title = $(elem).find(linkTitleSelector).attr('href')!.substring(1);
     const link = `https://github.com${$(elem)
       .find(linkTitleSelector)

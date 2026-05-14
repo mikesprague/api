@@ -29,7 +29,7 @@
     "node_modules",
     "types",
     "src/**/*.d.ts",
-    "./**/scratch*.ts",
+    "scratch.ts",
     "<node_internals>/**"
   ]
 }
