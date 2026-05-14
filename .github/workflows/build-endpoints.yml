@@ -1,9 +1,9 @@
 name: Build Endpoints
 
 on:
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
 
   schedule:
     - cron: "5 */6 * * *" # national day
@@ -20,6 +20,10 @@ concurrency:
 
 env:
   OUTPUT_FILE_DIR: "dist/"
+  APP_ENV: ${{ vars.APP_ENV || 'production' }}
+  CRAWLEE_HEADLESS: 1
+  CRAWLEE_STORAGE_DIR: ".crawlee"
+  TZ: "America/New_York"
 
 jobs:
   build:
@@ -45,28 +49,16 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: bun install
 
-      - name: ⚡ Cache national day data
-        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
-        id: national-day-cache
-        with:
-          path: ${{ env.OUTPUT_FILE_DIR }}national-day/
-          key: ${{ runner.os }}-national-day-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('**/national-day/index.json') }}
-          restore-keys: |
-            ${{ runner.os }}-national-day-${{ steps.setup-bun.outputs.bun-version }}-
-
       - name: 🛠️ Run script to generate national day data
-        if: github.event.schedule == '5 */6 * * *' || github.event_name == 'workflow_dispatch'
         run: bun run national-day
 
       - name: 🛠️ Run script to generate trending repo data
         run: bun run github-trending-repos
 
       - name: 🛠️ Run script to generate documentation
-        if: always()
         run: bun run typedoc-html
 
       - name: 📦 Create and upload build artifact
-        if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: api-endpoints
@@ -75,7 +67,6 @@ jobs:
 
   call-deploy-workflow:
     needs: [build]
-    if: always()
     uses: mikesprague/reusable-workflows/.github/workflows/pages-deploy.yml@main
     secrets:
       REPO_TOKEN: ${{ secrets.GITHUB_TOKEN}}

@@ -1,10 +1,5 @@
 import * as cheerio from 'cheerio';
-import {
-  CheerioCrawler,
-  // log,
-  // LogLevel,
-  // PlaywrightCrawler,
-} from 'crawlee';
+import { CheerioCrawler } from 'crawlee';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
@@ -16,6 +11,8 @@ import {
   sharedConfig,
   writeDataAsJsonFile,
 } from './lib/helpers';
+
+import 'varlock/auto-load';
 
 const { hrtime } = process;
 

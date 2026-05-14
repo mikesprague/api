@@ -9,13 +9,14 @@
     "clean": "bun x rimraf dist/ && bun x rimraf build/",
     "docs": "bun x rimraf docs/ && bun run typedoc",
     "declarations": "bun x rimraf types/ && bun x tsc --emitDeclarationOnly",
-    "github-trending-repos": "TZ='America/New_York' bun x tsx ./src/github-trending-repos.ts",
+    "env:load": "bun x varlock load",
+    "env:scan": "bun x varlock scan",
+    "github-trending-repos": "bun x tsx ./src/github-trending-repos.ts",
     "format": "bun x oxfmt src --write",
     "format:check": "bun x oxfmt src --check",
     "lint": "bun x oxlint src",
-    "national-day": "TZ='America/New_York' bun x tsx ./src/national-day.ts",
+    "national-day": "bun x tsx ./src/national-day.ts",
     "posttypecheck": "bun run declarations",
-    "postinstall": "bun x playwright install --with-deps webkit",
     "test": "bun run format:check && bun run lint && bun run typecheck",
     "typecheck": "bun x tsc --noEmit",
     "typedoc": "bun x typedoc --out ./docs --entryPointStrategy expand ./src --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
@@ -39,7 +40,7 @@
     "cheerio": "1.2.0",
     "crawlee": "3.16.0",
     "dayjs": "1.11.20",
-    "playwright": "1.60.0"
+    "varlock": "1.2.0"
   },
   "devDependencies": {
     "@types/node": "25.7.0",

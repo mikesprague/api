@@ -11,6 +11,8 @@ import {
   writeDataAsJsonFile,
 } from './lib/helpers.js';
 
+import 'varlock/auto-load';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault(sharedConfig.defaultTimezone);
