@@ -1,4 +1,4 @@
-import { CheerioCrawler, createCheerioRouter } from 'crawlee';
+import { CheerioCrawler, createCheerioRouter, log, LogLevel } from 'crawlee';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone.js';
 import utc from 'dayjs/plugin/utc.js';
@@ -19,9 +19,11 @@ dayjs.extend(timezone);
 dayjs.tz.setDefault(sharedConfig.defaultTimezone);
 
 // set crawlee log level
-// log.setLevel(LogLevel.DEBUG);
+log.setLevel(LogLevel.INFO);
 
 const debugStart = hrtime();
+
+log.info('[national-day] Starting workflow run');
 
 const config: NationalDayConfig = {
   urlToScrape: `https://www.daysoftheyear.com/days/${
@@ -52,7 +54,8 @@ const nationalDaysDescriptions: NationalDay[] = [];
 const router = createCheerioRouter();
 
 // handler for the main page that lists the national days
-router.addHandler('LIST', async ({ $, request, enqueueLinks, log }) => {
+log.info('[national-day] Instantiate router for main page');
+router.addHandler('LIST', async ({ $, request, enqueueLinks }) => {
   log.info(`[national-day] Processing ${request.url}...`);
 
   const daysContainer = $(config.selectors.daysContainer);
@@ -108,20 +111,22 @@ router.addHandler('LIST', async ({ $, request, enqueueLinks, log }) => {
             link,
             image,
           };
-          // console.log(nationalDay);
+          // log.info(nationalDay);
           nationalDaysData.push(nationalDay);
-          enqueueLinks({
-            selector: config.selectors.link,
-            label: 'DETAIL',
-          });
         }
       }
     }
   }
+  const urls = nationalDaysData.map((d) => d.link);
+  await enqueueLinks({
+    urls,
+    label: 'DETAIL',
+  });
 });
 
+log.info('[national-day] Instantiate router for individual day pages');
 router.addHandler('DETAIL', async ({ request, $ }) => {
-  console.log(`[national-day] Processing ${request.url}...`);
+  log.info(`[national-day] Processing ${request.url}...`);
 
   const title = $('title').text().split('|')[0].trim();
   const description = $(config.selectors.description.container)
@@ -137,31 +142,35 @@ router.addHandler('DETAIL', async ({ request, $ }) => {
   });
 });
 
+log.info('[national-day] Initialize crawler');
 const cheerioCrawler = new CheerioCrawler({
   maxRequestRetries: 3,
   requestHandler: router,
   failedRequestHandler({ request }) {
-    console.log(`[national-day] Request ${request.url} failed.`);
+    log.info(`[national-day] Request ${request.url} failed.`);
   },
 });
 
+log.info('[national-day] Run crawler');
 await cheerioCrawler.run([
   {
     url: config.urlToScrape,
     label: 'LIST',
   },
 ]);
-// console.log(nationalDaysDescriptions);
+// log.info(nationalDaysDescriptions);
 
+log.info('[national-day] Validate data');
 for (const day of nationalDaysDescriptions) {
   const existingDay = nationalDaysData.find((d) => d.link === day.link);
   if (existingDay && day.description) {
     existingDay.description = day.description;
   }
 }
-// console.log(nationalDaysData);
+// log.info(nationalDaysData);
 
 // remove entries without description
+log.info('[national-day] Clean data');
 const filteredNationalDaysData = nationalDaysData.filter(
   (day) => day.description
 );
@@ -171,6 +180,7 @@ const apiData: APIResults<NationalDay> = {
   data: filteredNationalDaysData,
 };
 
+log.info('[national-day] Write data to JSON file');
 await writeDataAsJsonFile(
   `${config.outputDir}national-day/`,
   config.fileName,
@@ -181,4 +191,5 @@ console.log(apiData);
 
 // output execution time
 const debugEnd = hrtime(debugStart);
-console.log(`Execution time: ${debugEnd[0] * 1000 + debugEnd[1] / 1000000}ms`);
+log.info('[national-day] Workflow run complete');
+log.info(`Execution time: ${debugEnd[0] * 1000 + debugEnd[1] / 1000000}ms`);
