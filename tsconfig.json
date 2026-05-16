@@ -30,6 +30,8 @@
     "types",
     "src/**/*.d.ts",
     "scratch.ts",
-    "<node_internals>/**"
+    "<node_internals>/**",
+    "src/national-week.ts",
+    "src/national-month.ts"
   ]
 }

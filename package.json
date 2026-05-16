@@ -43,15 +43,15 @@
     "varlock": "1.2.0"
   },
   "devDependencies": {
-    "@types/node": "25.7.0",
+    "@types/node": "25.8.0",
     "bun": "1.3.14",
     "bun-types": "1.3.14",
     "cross-env": "10.1.0",
     "cz-git": "1.13.1",
-    "oxfmt": "0.49.0",
-    "oxlint": "1.64.0",
+    "oxfmt": "0.50.0",
+    "oxlint": "1.65.0",
     "rimraf": "6.1.3",
-    "tsx": "4.21.0",
+    "tsx": "4.22.0",
     "typedoc": "0.28.19",
     "typedoc-plugin-markdown": "4.11.0",
     "typescript": "6.0.3"
