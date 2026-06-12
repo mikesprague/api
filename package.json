@@ -39,7 +39,7 @@
   "dependencies": {
     "crawlee": "3.17.0",
     "dayjs": "1.11.21",
-    "varlock": "1.6.0"
+    "varlock": "1.6.1"
   },
   "devDependencies": {
     "@types/node": "25.9.3",
