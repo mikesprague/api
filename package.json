@@ -42,7 +42,7 @@
     "varlock": "1.7.2"
   },
   "devDependencies": {
-    "@types/node": "25.9.3",
+    "@types/node": "26.0.0",
     "bun": "1.3.14",
     "bun-types": "1.3.14",
     "cross-env": "10.1.0",
