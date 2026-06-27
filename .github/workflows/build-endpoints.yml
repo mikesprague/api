@@ -34,31 +34,37 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: 🏗️ Setup Bun environment
-        id: setup-bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+      - name: 🏗️ Setup Node.js ${{ vars.NODE_VERSION }} environment
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        id: setup-node
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          check-latest: true
+
+      - name: ⚙️ Install @nubjs/nub
+        run: npm install -g @nubjs/nub
 
       - name: ⚡  Cache node_modules
         uses: actions/cache@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
         id: cache
         with:
           path: node_modules
-          key: ${{ runner.os }}-node-${{ steps.setup-bun.outputs.bun-version }}-${{ hashFiles('bun.lock') }}
+          key: ${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ steps.setup-bun.outputs.bun-version }}-
+            ${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-
 
       - name: ⬆️ Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: bun install
+        run: nub install
 
       - name: 🛠️ Run script to generate national day data
-        run: bun run national-day
+        run: nub run national-day
 
       - name: 🛠️ Run script to generate trending repo data
-        run: bun run github-trending-repos
+        run: nub run github-trending-repos
 
       - name: 🛠️ Run script to generate documentation
-        run: bun run typedoc-html
+        run: nub run typedoc-html
 
       - name: 📦 Create and upload build artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

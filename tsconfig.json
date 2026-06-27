@@ -17,7 +17,7 @@
     "strictFunctionTypes": true,
     "strictNullChecks": true,
     "target": "es2022",
-    "types": ["node", "bun-types"]
+    "types": ["node", "@nubjs/types"]
   },
   "include": ["src/**/*.ts"],
   "exclude": [
