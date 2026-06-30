@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@nubjs/nub": "0.2.10",
-    "@nubjs/types": "0.2.9",
+    "@nubjs/types": "0.2.10",
     "@types/node": "26.0.1",
     "cross-env": "10.1.0",
     "cz-git": "1.13.1",
