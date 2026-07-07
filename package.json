@@ -34,14 +34,14 @@
     "node": ">= 24.x",
     "npm": ">= 11.x"
   },
-  "packageManager": "nub@0.2.6",
+  "packageManager": "nub@0.4.0",
   "dependencies": {
     "crawlee": "3.17.0",
     "dayjs": "1.11.21",
     "varlock": "1.10.0"
   },
   "devDependencies": {
-    "@nubjs/nub": "0.2.10",
+    "@nubjs/nub": "0.4.0",
     "@nubjs/types": "0.4.0",
     "@types/node": "26.1.0",
     "cross-env": "10.1.0",
@@ -63,7 +63,7 @@
     "npm": "11.17.0"
   },
   "allowScripts": {
-    "@nubjs/nub@0.2.6": true
+    "@nubjs/nub@0.4.0": true
   },
   "allowBuilds": {
     "@nubjs/nub": true
