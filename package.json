@@ -19,8 +19,8 @@
     "posttypecheck": "nub run declarations",
     "test": "nub run format:check && nub run lint && nub run typecheck",
     "typecheck": "nubx tsc --noEmit",
-    "typedoc": "nubx typedoc --out ./docs --entryPointStrategy expand ./src --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
-    "typedoc-html": "nubx typedoc --out ./dist/docs --entryPointStrategy expand ./src --excludeNotDocumented false --readme none"
+    "typedoc": "typedoc --out ./docs --entryPointStrategy expand ./src --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
+    "typedoc-html": "typedoc --out ./dist/docs --entryPointStrategy expand ./src --excludeNotDocumented false --readme none"
   },
   "author": {
     "name": "Michael Sprague",
