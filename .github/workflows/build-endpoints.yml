@@ -41,8 +41,8 @@ jobs:
           node-version: ${{ vars.NODE_VERSION }}
           check-latest: true
 
-      - name: ⚙️ Install @nubjs/nub
-        run: npm install -g @nubjs/nub --allow-scripts=@nubjs/nub
+      - name: 🏗️ Setup Nub
+        uses: nubjs/setup-nub@47e5e7393d50f4e9544ddaf756aa277972afba2d # v0.4.0
 
       - name: ⚡  Cache node_modules
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -55,7 +55,7 @@ jobs:
 
       - name: ⬆️ Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: nub install
+        run: npm install
 
       - name: 🛠️ Run script to generate national day data
         run: nub run national-day
