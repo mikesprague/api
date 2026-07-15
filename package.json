@@ -41,7 +41,7 @@
     "varlock": "1.10.0"
   },
   "devDependencies": {
-    "@nubjs/nub": "0.4.11",
+    "@nubjs/nub": "0.4.12",
     "@nubjs/types": "0.4.11",
     "@types/node": "26.1.1",
     "cross-env": "10.1.0",
