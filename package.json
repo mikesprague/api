@@ -53,7 +53,7 @@
     "typescript": "6.0.3"
   },
   "overrides": {
-    "adm-zip": "0.6.0"
+    "brace-expansion": "5.0.8"
   },
   "config": {
     "commitizen": {
@@ -61,7 +61,7 @@
     }
   },
   "volta": {
-    "node": "26.5.0",
+    "node": "26.5.1",
     "npm": "12.0.1"
   },
   "allowScripts": {
