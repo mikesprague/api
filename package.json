@@ -5,20 +5,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nubx tsc",
-    "clean": "nubx rimraf dist/ && nubx rimraf build/",
-    "docs": "nubx rimraf docs/ && nub run typedoc",
-    "declarations": "nubx rimraf types/ && nubx tsc --emitDeclarationOnly",
-    "env:load": "nubx varlock load",
-    "env:scan": "nubx varlock scan",
+    "build": "tsc",
+    "clean": "rimraf dist/ && rimraf build/",
+    "docs": "rimraf docs/ && nub run typedoc",
+    "declarations": "rimraf types/ && tsc --emitDeclarationOnly",
+    "env:load": "varlock load",
+    "env:scan": "varlock scan",
     "github-trending-repos": "nub ./src/github-trending-repos.ts",
-    "format": "nubx oxfmt src --write",
-    "format:check": "nubx oxfmt src --check",
-    "lint": "nubx oxlint src",
+    "format": "oxfmt src --write",
+    "format:check": "oxfmt src --check",
+    "lint": "oxlint src",
     "national-day": "nub ./src/national-day.ts",
     "posttypecheck": "nub run declarations",
     "test": "nub run format:check && nub run lint && nub run typecheck",
-    "typecheck": "nubx tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "typedoc": "typedoc --out ./docs --entryPointStrategy expand ./src --excludeNotDocumented false --plugin typedoc-plugin-markdown --readme none",
     "typedoc-html": "typedoc --out ./dist/docs --entryPointStrategy expand ./src --excludeNotDocumented false --readme none"
   },
@@ -31,8 +31,8 @@
     "url": "https://github.com/mikesprague/api"
   },
   "engines": {
-    "node": ">= 24.x",
-    "npm": ">= 11.x"
+    "node": ">= 26.x",
+    "npm": ">= 12.x"
   },
   "packageManager": "npm@12.0.2",
   "dependencies": {
@@ -50,16 +50,13 @@
     "rimraf": "6.1.3",
     "typedoc": "0.28.20",
     "typedoc-plugin-markdown": "4.12.0",
-    "typescript": "6.0.3"
+    "typescript": "npm:@typescript/typescript6@^6.0.3",
+    "typescript-7": "npm:typescript@7.0.2"
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-git"
     }
-  },
-  "volta": {
-    "node": "26.5.1",
-    "npm": "12.0.2"
   },
   "allowScripts": {
     "@nubjs/nub": true
