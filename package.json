@@ -37,7 +37,7 @@
   "packageManager": "npm@12.0.2",
   "dependencies": {
     "crawlee": "3.18.1",
-    "dayjs": "1.11.22",
+    "dayjs": "1.11.23",
     "varlock": "1.16.1"
   },
   "devDependencies": {
