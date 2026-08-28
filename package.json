@@ -38,7 +38,7 @@
   "dependencies": {
     "crawlee": "3.18.1",
     "dayjs": "1.11.23",
-    "varlock": "1.17.0"
+    "varlock": "1.17.1"
   },
   "devDependencies": {
     "@nubjs/nub": "0.7.5",
