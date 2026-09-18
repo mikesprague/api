@@ -42,7 +42,7 @@ jobs:
           check-latest: true
 
       - name: 🏗️ Setup Nub
-        uses: nubjs/setup-nub@21b317c170eee658503996209cf87b63481be35a # v0.5.0
+        uses: nubjs/setup-nub@c7b970ec04655a2f0a111cd436cc182a3b660e7a # v0.6.0
 
       - name: ⚡  Cache node_modules
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
