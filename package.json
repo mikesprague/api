@@ -43,7 +43,7 @@
   "devDependencies": {
     "@nubjs/nub": "0.9.7",
     "@nubjs/types": "0.9.7",
-    "@types/node": "26.6.5",
+    "@types/node": "26.6.6",
     "cz-git": "1.14.0",
     "oxfmt": "0.75.0",
     "oxlint": "1.90.0",
