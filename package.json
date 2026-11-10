@@ -45,7 +45,7 @@
     "@nubjs/types": "0.9.7",
     "@types/node": "26.6.6",
     "cz-git": "1.14.0",
-    "oxfmt": "0.76.0",
+    "oxfmt": "0.77.0",
     "oxlint": "1.91.0",
     "oxlint-tsgolint": "7.0.2006",
     "rimraf": "6.1.4",
