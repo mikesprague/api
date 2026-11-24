@@ -47,7 +47,7 @@
     "cz-git": "1.14.0",
     "oxfmt": "0.79.0",
     "oxlint": "1.94.0",
-    "oxlint-tsgolint": "7.0.2007",
+    "oxlint-tsgolint": "7.0.2008",
     "rimraf": "6.1.4",
     "typedoc": "0.28.20",
     "typedoc-plugin-markdown": "4.14.1",
