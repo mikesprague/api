@@ -41,7 +41,7 @@
     "varlock": "1.25.0"
   },
   "devDependencies": {
-    "@nubjs/nub": "0.11.1",
+    "@nubjs/nub": "0.11.2",
     "@nubjs/types": "0.11.2",
     "@types/node": "26.6.6",
     "cz-git": "1.14.0",
